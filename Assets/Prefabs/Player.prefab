@@ -65,7 +65,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 1564127877408105904}
   - component: {fileID: 4371560456210452117}
   - component: {fileID: 5008955207012135967}
+  - component: {fileID: 5786278119703130646}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -170,7 +171,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3008913848641164242}
@@ -325,4 +326,17 @@ MonoBehaviour:
   interactionRayDistance: 3
   interacitonLayer:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 119
+  playerInventory: {fileID: 5786278119703130646}
+--- !u!114 &5786278119703130646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246709254494815079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd087dd4601e04c97d3f1e35e8d868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
