@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float gravity;
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioClip footstepClip;
+    [SerializeField] private float footstepInterval;
 
     private CharacterController _controller;
     private Vector3 _movementDirection;
@@ -12,12 +16,20 @@ public class PlayerMovement : MonoBehaviour
     private float _inputY;
     private bool _canDoubleJump;
     private bool _isCrouch;
-    private float _verticalVelocity = -2f;
+    private float _verticalVelocity;
+
+    public static bool IsMovementInputOn { get; set; }
 
     private void Awake()
     {
         // Get Character Controller component from same game object this script attached to
         _controller = GetComponent<CharacterController>();
+        IsMovementInputOn = true;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(PlayFootstep());
     }
 
     private void Update()
@@ -25,28 +37,43 @@ public class PlayerMovement : MonoBehaviour
         // Apply gravity method
         ApplyGravity();
 
-        // Get horizontal input = A/D and vertical input = W/S
-        _inputX = Input.GetAxis("Horizontal");
-        _inputY = Input.GetAxis("Vertical");
-
-        // Check if player is grounded, then assign true to canDoubleJump variable
-        if (_controller.isGrounded)
+        if (IsMovementInputOn)
         {
-            _canDoubleJump = true;
+            // Get horizontal input = A/D and vertical input = W/S
+            _inputX = Input.GetAxisRaw("Horizontal");
+            _inputY = Input.GetAxisRaw("Vertical");
+
+            // Check if player is grounded, then assign true to canDoubleJump variable
+            if (_controller.isGrounded)
+            {
+                _canDoubleJump = true;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                movementSpeed = 7;
+                // footstepInterval = ;
+            }
+            else
+            {
+                movementSpeed = 3;
+                // footstepInterval = ;
+            }
+
+            Jump();
+
+            Crouch();
+
+            CalculateMovement();
         }
-
-        Jump();
-
-        Crouch();
-
-        CalculateMovement();
     }
 
     private void CalculateMovement()
     {
         // Get the X axis of player and multiply by inputX (A/D) and add it to the Z axis of player and multiply by inputY (W/S),
-        //  then all multiply by movementSpeed
-        _movementDirection = (transform.right * _inputX + transform.forward * _inputY) * movementSpeed;
+        //  then normalize the vector to make magnitude always 1 instead of 1.43 when moving diagnolly
+        //  then multiply by movementSpeed
+        _movementDirection = (transform.right * _inputX + transform.forward * _inputY).normalized * movementSpeed;
 
         // Set the Y axis of movementDirection vector to verticalVelocity variable
         _movementDirection.y = _verticalVelocity;
@@ -58,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGravity()
     {
         // If player is grounded, then set veticalVelocity variable to -2f
-        if (_controller.isGrounded)
+        if (_controller.isGrounded && _verticalVelocity < 0)
         {
             _verticalVelocity = -2f;
         }
@@ -98,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
             _isCrouch = true;
+            movementSpeed -= 2f;
         }
 
         // Check if player pressed C key and the scale of y is equal to 0.5, 
@@ -106,6 +134,21 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
             _isCrouch = false;
+            movementSpeed += 2f;
+        }
+    }
+
+    private IEnumerator PlayFootstep()
+    {
+        while (true)
+        {
+            if (new Vector2(_inputX, _inputY) != Vector2.zero && _controller.isGrounded)
+            {
+                footstepAudioSource.PlayOneShot(footstepClip);
+                yield return new WaitForSeconds(footstepInterval);
+            }
+
+            yield return null;
         }
     }
 }
