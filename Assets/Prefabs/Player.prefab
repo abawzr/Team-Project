@@ -327,7 +327,6 @@ MonoBehaviour:
   interacitonLayer:
     serializedVersion: 2
     m_Bits: 119
-  playerInventory: {fileID: 5786278119703130646}
 --- !u!114 &5786278119703130646
 MonoBehaviour:
   m_ObjectHideFlags: 0

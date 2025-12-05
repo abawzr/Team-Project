@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private float _inputY;
     private bool _canDoubleJump;
     private bool _isCrouch;
-    private float _verticalVelocity = -2f;
+    private float _verticalVelocity;
+
+    public static bool IsMovementInputOn { get; set; }
 
     //hiding
      public bool isHiding=false;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get Character Controller component from same game object this script attached to
         _controller = GetComponent<CharacterController>();
+        IsMovementInputOn = true;
     }
 
     private void Update()
@@ -33,28 +36,32 @@ public class PlayerMovement : MonoBehaviour
         // Apply gravity method
         ApplyGravity();
 
-        // Get horizontal input = A/D and vertical input = W/S
-        _inputX = Input.GetAxis("Horizontal");
-        _inputY = Input.GetAxis("Vertical");
-
-        // Check if player is grounded, then assign true to canDoubleJump variable
-        if (_controller.isGrounded)
+        if (IsMovementInputOn)
         {
-            _canDoubleJump = true;
+            // Get horizontal input = A/D and vertical input = W/S
+            _inputX = Input.GetAxisRaw("Horizontal");
+            _inputY = Input.GetAxisRaw("Vertical");
+
+            // Check if player is grounded, then assign true to canDoubleJump variable
+            if (_controller.isGrounded)
+            {
+                _canDoubleJump = true;
+            }
+
+            Jump();
+
+            Crouch();
+
+            CalculateMovement();
         }
-
-        Jump();
-
-        Crouch();
-
-        CalculateMovement();
     }
 
     private void CalculateMovement()
     {
         // Get the X axis of player and multiply by inputX (A/D) and add it to the Z axis of player and multiply by inputY (W/S),
-        //  then all multiply by movementSpeed
-        _movementDirection = (transform.right * _inputX + transform.forward * _inputY) * movementSpeed;
+        //  then normalize the vector to make magnitude always 1 instead of 1.43 when moving diagnolly
+        //  then multiply by movementSpeed
+        _movementDirection = (transform.right * _inputX + transform.forward * _inputY).normalized * movementSpeed;
 
         // Set the Y axis of movementDirection vector to verticalVelocity variable
         _movementDirection.y = _verticalVelocity;
@@ -66,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGravity()
     {
         // If player is grounded, then set veticalVelocity variable to -2f
-        if (_controller.isGrounded)
+        if (_controller.isGrounded && _verticalVelocity < 0)
         {
             _verticalVelocity = -2f;
         }
@@ -106,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
             _isCrouch = true;
+            movementSpeed -= 2f;
         }
 
         // Check if player pressed C key and the scale of y is equal to 0.5, 
@@ -114,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
             _isCrouch = false;
+            movementSpeed += 2f;
         }
     }
 }
