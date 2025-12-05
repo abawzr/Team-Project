@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _isCrouch;
     private float _verticalVelocity = -2f;
 
+    //hiding
+     public bool isHiding=false;
+
     private void Awake()
     {
         // Get Character Controller component from same game object this script attached to
@@ -22,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //hiding 
+        if (isHiding)
+            return;
+        
+
         // Apply gravity method
         ApplyGravity();
 
