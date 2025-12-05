@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
-    [SerializeField] private float footstepInterval;
+    [SerializeField] private float walkStepInterval;
+    [SerializeField] private float runStepInterval;
 
     private CharacterController _controller;
     private Vector3 _movementDirection;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canDoubleJump;
     private bool _isCrouch;
     private float _verticalVelocity;
+    private float _stepTimer;
 
     public static bool IsMovementInputOn { get; set; }
 
@@ -25,11 +27,6 @@ public class PlayerMovement : MonoBehaviour
         // Get Character Controller component from same game object this script attached to
         _controller = GetComponent<CharacterController>();
         IsMovementInputOn = true;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(PlayFootstep());
     }
 
     private void Update()
@@ -65,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
             Crouch();
 
             CalculateMovement();
+
+            PlayFootstep();
         }
     }
 
@@ -138,17 +137,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayFootstep()
+    private void PlayFootstep()
     {
-        while (true)
-        {
-            if (new Vector2(_inputX, _inputY) != Vector2.zero && _controller.isGrounded)
-            {
-                footstepAudioSource.PlayOneShot(footstepClip);
-                yield return new WaitForSeconds(footstepInterval);
-            }
+        if (footstepClip == null) return;
 
-            yield return null;
+        // Player is not moving
+        if (new Vector2(_inputX, _inputY) == Vector2.zero || !_controller.isGrounded)
+        {
+            _stepTimer = 0;
+            return;
+        }
+
+        float stepInterval = movementSpeed < 5 ? walkStepInterval : runStepInterval;
+
+        _stepTimer += Time.deltaTime;
+
+        if (_stepTimer >= stepInterval)
+        {
+            footstepAudioSource.PlayOneShot(footstepClip);
+            _stepTimer = 0;
         }
     }
 }
