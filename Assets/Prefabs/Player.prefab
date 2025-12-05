@@ -294,12 +294,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8358ad8b0786ffe4d90bf5241ebf87e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  movementSpeed: 6
+  movementSpeed: 3
   jumpPower: 7
   gravity: -20
   footstepAudioSource: {fileID: 34685753889354900}
-  footstepClip: {fileID: 0}
-  footstepInterval: 0.5
+  footstepClip: {fileID: 8300000, guid: 7a4fa7b3e6fec9142a9dce7fbf886a34, type: 3}
+  walkStepInterval: 0.6
+  runStepInterval: 0.4
 --- !u!114 &4371560456210452117
 MonoBehaviour:
   m_ObjectHideFlags: 0
