@@ -5,12 +5,18 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform mainCamera;
     [SerializeField] private float interactionRayDistance;
     [SerializeField] private LayerMask interacitonLayer;
-    [SerializeField] private PlayerInventory playerInventory;
+
+    private PlayerInventory _playerInventory;
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(mainCamera.position, mainCamera.forward * interactionRayDistance);
+    }
+
+    private void Awake()
+    {
+        _playerInventory = GetComponent<PlayerInventory>();
     }
 
     private void Update()
@@ -21,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
                 {
-                    interactable.Interact(playerInventory);
+                    interactable.Interact(_playerInventory);
                 }
             }
         }
