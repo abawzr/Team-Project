@@ -49,6 +49,17 @@ public class PlayerMovement : MonoBehaviour
                 _canDoubleJump = true;
             }
 
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                movementSpeed = 7;
+                // footstepInterval = ;
+            }
+            else
+            {
+                movementSpeed = 3;
+                // footstepInterval = ;
+            }
+
             Jump();
 
             Crouch();
