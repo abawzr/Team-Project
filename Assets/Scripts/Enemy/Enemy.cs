@@ -9,9 +9,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float viewAngle = 60f;
     [SerializeField] private float viewDistance = 10f;
     [SerializeField] private LayerMask obstructionMask;
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioClip footstepClip;
+    [SerializeField] private float walkStepInterval;
+    [SerializeField] private float runStepInterval;
 
     private NavMeshAgent _navMeshAgent;
     private int _currentPatrolPoint;
+    private Vector3 _eyePosition;
+    private Vector3 _directionToPlayer;
+    private float _stepTimer;
 
     private void OnDrawGizmosSelected()
     {
@@ -24,6 +31,9 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + transform.up * 0.5f, transform.position + rightLimit * viewDistance);
         Gizmos.DrawLine(transform.position + transform.up * 0.5f, transform.position + leftLimit * viewDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(_eyePosition, _directionToPlayer * viewDistance);
     }
 
     private void Awake()
@@ -57,6 +67,8 @@ public class Enemy : MonoBehaviour
                 NextPoint();
             }
         }
+
+        PlayFootstep();
     }
 
     private bool CanSeePlayer()
@@ -66,13 +78,13 @@ public class Enemy : MonoBehaviour
         if (distance > viewDistance) return false;
 
         // Check field of view
-        Vector3 eyePosition = transform.position + transform.up * 0.5f;
-        Vector3 directionToPlayer = (playerTransform.position + playerTransform.up * 0.25f - eyePosition).normalized;
-        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+        _eyePosition = transform.position + transform.up * 0.5f;
+        _directionToPlayer = (playerTransform.position + playerTransform.up * 0.25f - _eyePosition).normalized;
+        float angle = Vector3.Angle(transform.forward, _directionToPlayer);
         if (angle > viewAngle) return false;
 
         // Raycast to check if wall is blocking
-        if (Physics.Raycast(eyePosition, directionToPlayer, viewDistance, obstructionMask))
+        if (Physics.Raycast(_eyePosition, _directionToPlayer, viewDistance, obstructionMask))
         {
             return false; // Player is not visible
         }
@@ -97,5 +109,29 @@ public class Enemy : MonoBehaviour
         }
 
         _navMeshAgent.SetDestination(patrolPoints[_currentPatrolPoint].position);
+    }
+
+    private void PlayFootstep()
+    {
+        if (footstepClip == null) return;
+
+        float speed = _navMeshAgent.velocity.magnitude;
+
+        // Enemy is not moving
+        if (speed < 0.01f)
+        {
+            _stepTimer = 0;
+            return;
+        }
+
+        float stepInterval = speed < 5 ? walkStepInterval : runStepInterval;
+
+        _stepTimer += Time.deltaTime;
+
+        if (_stepTimer >= stepInterval)
+        {
+            footstepAudioSource.PlayOneShot(footstepClip);
+            _stepTimer = 0;
+        }
     }
 }
