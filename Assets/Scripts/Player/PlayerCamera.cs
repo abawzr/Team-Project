@@ -34,7 +34,7 @@ public class PlayerCamera : MonoBehaviour
             mainCamera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
 
             // Rotate the player horizontally, and because the camera is a child of player then it will rotate with it horizontally
-            transform.Rotate(transform.up * _mouseX);
+            transform.Rotate(Vector3.up * _mouseX);
         }
     }
 }

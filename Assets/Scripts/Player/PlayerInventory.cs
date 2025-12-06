@@ -1,7 +1,12 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] private Image uiItemImage;
+    [SerializeField] private TMP_Text uiItemText;
+
     private GameObject _currentItem;
 
     public bool HasItem(GameObject item)
@@ -13,9 +18,12 @@ public class PlayerInventory : MonoBehaviour
     {
         Destroy(_currentItem);
         _currentItem = null;
+        uiItemImage.sprite = null;
+        uiItemImage.enabled = false;
+        uiItemText.text = string.Empty;
     }
 
-    public void PickItem(GameObject item)
+    public void PickItem(GameObject item, Sprite itemIcon)
     {
         if (_currentItem != null)
         {
@@ -26,6 +34,9 @@ public class PlayerInventory : MonoBehaviour
         }
 
         _currentItem = item;
+        uiItemImage.sprite = itemIcon;
+        uiItemImage.enabled = true;
+        uiItemText.text = item.name;
         item.SetActive(false);
     }
 }
