@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool IsMovementInputOn { get; set; }
 
     //hiding
-     public bool isHiding=false;
+   //  public bool isHiding=false;
 
     private void Awake()
     {
@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //hiding 
-        if (isHiding)
-            return;
-        
+        //if (isHiding)
+        //    return;
+
 
         // Apply gravity method
         ApplyGravity();
