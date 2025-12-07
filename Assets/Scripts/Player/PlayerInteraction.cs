@@ -8,6 +8,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private PlayerInventory _playerInventory;
 
+    public static bool IsPlayerHidden { get; set; }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

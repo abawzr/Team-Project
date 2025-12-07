@@ -7,11 +7,9 @@ public class Bed : MonoBehaviour, IInteractable
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
 
-    private bool _isPlayerHidden;
-
     private void Hide()
     {
-        _isPlayerHidden = true;
+        PlayerInteraction.IsPlayerHidden = true;
 
         PlayerMovement.IsMovementInputOn = false;
         PlayerCamera.IsCameraInputOn = false;
@@ -24,7 +22,7 @@ public class Bed : MonoBehaviour, IInteractable
 
     private void Exit()
     {
-        _isPlayerHidden = false;
+        PlayerInteraction.IsPlayerHidden = false;
 
         PlayerMovement.IsMovementInputOn = true;
         PlayerCamera.IsCameraInputOn = true;
@@ -35,16 +33,18 @@ public class Bed : MonoBehaviour, IInteractable
         playerController.enabled = true;
     }
 
-    public void Interact(PlayerInventory playerInventory)
+    private void Update()
     {
-        if (_isPlayerHidden)
+        if (PlayerInteraction.IsPlayerHidden && Input.GetButtonDown("Fire1"))
         {
             Exit();
         }
-
-        else
+    }
+    public void Interact(PlayerInventory playerInventory)
+    {
+        if (!PlayerInteraction.IsPlayerHidden)
         {
-            Hide();
+             Hide();
         }
     }
 }
