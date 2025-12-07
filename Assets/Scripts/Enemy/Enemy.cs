@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _directionToPlayer;
     private float _stepTimer;
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewDistance);

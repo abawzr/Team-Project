@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
 
-            Crouch();
-
             CalculateMovement();
 
             PlayFootstep();
@@ -121,27 +119,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _verticalVelocity = jumpPower;
             _canDoubleJump = false;
-        }
-    }
-
-    private void Crouch()
-    {
-        // Check if player pressed C key and the scale of y is equal to 1 and player is grounded, 
-        //  then set the scale of y to 0.5f, and set isCrouch variable to true 
-        if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 1f && _controller.isGrounded)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
-            _isCrouch = true;
-            movementSpeed -= 2f;
-        }
-
-        // Check if player pressed C key and the scale of y is equal to 0.5, 
-        //  then set the scale of y to 1f, and set isCrouch variable to false
-        else if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 0.5f)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
-            _isCrouch = false;
-            movementSpeed += 2f;
         }
     }
 
