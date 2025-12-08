@@ -8,4 +8,9 @@ public class Item : MonoBehaviour, IInteractable
     {
         playerInventory.PickItem(gameObject, itemIcon);
     }
+
+    public Sprite GetItemIcon()
+    {
+        return itemIcon;
+    }
 }
