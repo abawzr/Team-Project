@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class bodypart : MonoBehaviour, IInteractable
 {
-    public int partID;
+    public int weight;
     [SerializeField] private Sprite itemIcon;
 
 
