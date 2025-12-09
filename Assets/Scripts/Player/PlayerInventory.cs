@@ -7,17 +7,17 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Image uiItemImage;
     [SerializeField] private TMP_Text uiItemText;
 
-    private GameObject _currentItem;
+    public GameObject CurrentItem { get; private set; }
 
-    public bool HasItem(GameObject item)
+    public bool HasItem()
     {
-        return item == _currentItem;
+        return CurrentItem != null;
     }
 
     public void UseItem()
     {
-        Destroy(_currentItem);
-        _currentItem = null;
+        Destroy(CurrentItem);
+        CurrentItem = null;
         uiItemImage.sprite = null;
         uiItemImage.enabled = false;
         uiItemText.text = string.Empty;
@@ -25,18 +25,34 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickItem(GameObject item, Sprite itemIcon)
     {
-        if (_currentItem != null)
+        if (CurrentItem != null)
         {
-            _currentItem.transform.position = item.transform.position;
-            _currentItem.transform.rotation = Quaternion.identity;
-            _currentItem.transform.localScale = Vector3.one;
-            _currentItem.SetActive(true);
+            CurrentItem.transform.position = item.GetComponent<MeshRenderer>().bounds.center;
+
+            CurrentItem.SetActive(true);
         }
 
-        _currentItem = item;
+        CurrentItem = item;
+
         uiItemImage.sprite = itemIcon;
         uiItemImage.enabled = true;
         uiItemText.text = item.name;
+
         item.SetActive(false);
+    }
+
+    public void PutItem(Vector3 placePoint)
+    {
+        // There is no item in inventory
+        if (CurrentItem == null) return;
+
+        CurrentItem.transform.position = placePoint;
+
+        CurrentItem.SetActive(true);
+        CurrentItem = null;
+
+        uiItemImage.sprite = null;
+        uiItemImage.enabled = false;
+        uiItemText.text = string.Empty;
     }
 }

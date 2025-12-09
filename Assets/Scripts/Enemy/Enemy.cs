@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float runStepInterval;
 
     private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
     private int _currentPatrolPoint;
     private Vector3 _eyePosition;
     private Vector3 _directionToPlayer;
@@ -38,8 +39,9 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        // Get Nav Mesh Agent component from same game object this script attached to
+        // Get Nav Mesh Agent and Animator components from same game object this script attached to
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -51,15 +53,21 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-       // Check if enemy can see player
+        _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+
+        // Check if enemy can see player
         if (CanSeePlayer())
         {
+            _animator.SetBool("IsChasing", true);
+
             // Speed up the enemy and make it follow player
             _navMeshAgent.speed = 5f;
             _navMeshAgent.SetDestination(playerTransform.position);
         }
         else
         {
+            _animator.SetBool("IsChasing", false);
+
             // Slow down the enemy and make him patrolling
             _navMeshAgent.speed = 3.5f;
             if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
