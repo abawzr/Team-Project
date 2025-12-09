@@ -81,6 +81,8 @@ public class Enemy : MonoBehaviour
 
     private bool CanSeePlayer()
     {
+         if (PlayerInteraction.IsPlayerHidden) return false;
+
         // Check distance between enemy and player
         float distance = Vector3.Distance(transform.position, playerTransform.position);
         if (distance > viewDistance) return false;

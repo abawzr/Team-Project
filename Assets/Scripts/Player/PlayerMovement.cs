@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
 
     public static bool IsMovementInputOn { get; set; }
 
+    //hiding
+   //  public bool isHiding=false;
+
     private void Awake()
     {
         // Get Character Controller component from same game object this script attached to
@@ -31,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //hiding 
+        //if (isHiding)
+        //    return;
+
+
         // Apply gravity method
         ApplyGravity();
 
