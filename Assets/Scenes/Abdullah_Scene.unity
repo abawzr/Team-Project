@@ -261,27 +261,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2753301203748542301, guid: d63934c40e7ed7e46a41553e11a7f3a2, type: 3}
       propertyPath: m_Name
-      value: Puzzle2 Paper
+      value: Puzzle1 Paper
       objectReference: {fileID: 0}
     - target: {fileID: 9188735198628456660, guid: d63934c40e7ed7e46a41553e11a7f3a2, type: 3}
       propertyPath: tmpText
       value: 
       objectReference: {fileID: 860668019}
-    - target: {fileID: 9188735198628456660, guid: d63934c40e7ed7e46a41553e11a7f3a2, type: 3}
-      propertyPath: noteText
-      value: ".\uFEA2\uFEF4\uFEA4\uFEBC\uFEDF\u0627 \uFEE2\uFEEC\uFE92\uFEF4\uFE97\uFEAE\uFE97
-        \uFEF2\uFED3 \u0627\uFEEE\uFED4\uFED7\u0648 \u0627\u0630\u0625 \uFEFB\u0625
-        \uFED6\uFEF3\uFEAE\uFEC4\uFEDF\u0627 \u0646\uFEEE\uFEA4\uFE98\uFED4\uFEF3
-        \uFEFB \u2026\uFE94\uFED8\uFEF4\uFED8\uFEA4\uFEE0\uFEDF \u0628\uFE8E\uFEA0\uFC61\uFEA3
-        \uFE94\uFECC\uFE91\u0631\u0623 \u0643\uFE8E\uFEE8\uFEEB\n\n.\uFEEA\uFEF3\u0651\uFEAA\uFEA4\uFE97
-        \uFBFD\uFEE0\uFECB \uFEAA\uFEA3\u0623 \u0624\uFEAE\uFEA0\uFEF3 \uFEFB \uFEE6\uFEE3
-        \u2026\u0644\u0648\uFEF7\u0627\n.\uFEEA\uFEF4\uFEA3\uFE8E\uFEE8\uFE9F \uFBFD\uFEE0\uFECB\u0623
-        \uFEE6\uFEE3 \uFEE2\uFEDF\uFE8E\uFECC\uFEDF\u0627 \u0649\uFEAE\uFEF3 \uFEE6\uFEE3
-        \uFEE2\uFE9B\n.\u0641\uFEEE\uFEA7 \uFEFC\uFE91 \uFE8E\uFEE8\uFEE8\uFEF4\uFE91
-        \uFEB6\uFEF4\uFECC\uFEF3 \uFEE6\uFEE3 \u2026\uFE8E\uFEE4\uFEEB\uFEAA\uFECC\uFE91\n.\u064B\uFEFB\u0627\u0648\u0632
-        \uFE84\uFEC4\uFE91\uFEF7\u0627\u0648 \u060C\u0627\u064B\uFEEE\uFEC4\uFEA7
-        \uFEDE\uFED8\uFE9B\uFEF7\u0627 \u2026\u0627\u064B\uFEAE\uFEF4\uFEA7\u0623\u0648"
-      objectReference: {fileID: 0}
     - target: {fileID: 9188735198628456660, guid: d63934c40e7ed7e46a41553e11a7f3a2, type: 3}
       propertyPath: crosshairUI
       value: 
