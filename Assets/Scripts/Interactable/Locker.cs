@@ -6,8 +6,6 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
 
-    
-
     private void Hide()
     {
         PlayerInteraction.IsPlayerHidden = true;

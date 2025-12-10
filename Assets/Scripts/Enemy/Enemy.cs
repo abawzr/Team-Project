@@ -6,9 +6,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private float viewAngle = 60f;
     [SerializeField] private float viewDistance = 10f;
-    [SerializeField] private LayerMask obstructionMask;
+    [SerializeField] private LayerMask excludeEnemyLayer;
+    [SerializeField] private Transform jumpscarePointTransform;
+    [SerializeField] private float jumpscareDistance;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float walkStepInterval;
@@ -20,6 +23,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _eyePosition;
     private Vector3 _directionToPlayer;
     private float _stepTimer;
+    private bool _isJumpscareOccurred;
 
     private void OnDrawGizmos()
     {
@@ -55,47 +59,72 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
 
-        // Check if enemy can see player
-        if (CanSeePlayer())
+        if (!_isJumpscareOccurred)
         {
-            _animator.SetBool("IsChasing", true);
-
-            // Speed up the enemy and make it follow player
-            _navMeshAgent.speed = 5f;
-            _navMeshAgent.SetDestination(playerTransform.position);
-        }
-        else
-        {
-            _animator.SetBool("IsChasing", false);
-
-            // Slow down the enemy and make him patrolling
-            _navMeshAgent.speed = 3.5f;
-            if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
+            // Check if enemy can see player
+            if (CanSeePlayer())
             {
-                NextPoint();
-            }
-        }
+                _animator.SetBool("IsChasing", true);
 
-        PlayFootstep();
+                // Speed up the enemy and make it follow player
+                _navMeshAgent.speed = 5f;
+                _navMeshAgent.SetDestination(playerTransform.position);
+
+                if (Vector3.Distance(transform.position, playerTransform.position) <= jumpscareDistance)
+                {
+                    PlayerMovement.IsMovementInputOn = false;
+                    PlayerCamera.IsCameraInputOn = false;
+
+                    _navMeshAgent.speed = 0f;
+                    _navMeshAgent.acceleration = 0f;
+                    _navMeshAgent.velocity = Vector3.zero;
+
+                    transform.position = jumpscarePointTransform.position;
+                    transform.rotation = jumpscarePointTransform.localRotation;
+
+                    _animator.SetBool("IsJumpscare", true);
+
+                    _isJumpscareOccurred = true;
+                }
+            }
+            else
+            {
+                _animator.SetBool("IsChasing", false);
+
+                // Slow down the enemy and make him patrolling
+                _navMeshAgent.speed = 3.5f;
+                if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
+                {
+                    NextPoint();
+                }
+            }
+
+            PlayFootstep();
+        }
     }
 
     private bool CanSeePlayer()
     {
-         if (PlayerInteraction.IsPlayerHidden) return false;
+        if (PlayerInteraction.IsPlayerHidden) return false;
 
         // Check distance between enemy and player
         float distance = Vector3.Distance(transform.position, playerTransform.position);
         if (distance > viewDistance) return false;
 
         // Check field of view
-        _eyePosition = transform.position + transform.up * 0.5f;
+        _eyePosition = transform.position + transform.up * 1.8f;
         _directionToPlayer = (playerTransform.position + playerTransform.up * 0.25f - _eyePosition).normalized;
         float angle = Vector3.Angle(transform.forward, _directionToPlayer);
         if (angle > viewAngle) return false;
 
         // Raycast to check if wall is blocking
-        if (Physics.Raycast(_eyePosition, _directionToPlayer, viewDistance, obstructionMask))
+        if (Physics.Raycast(_eyePosition, _directionToPlayer, out RaycastHit hitInfo, viewDistance, excludeEnemyLayer))
         {
+            if (hitInfo.collider.tag == "Player")
+            {
+                return true;
+            }
+
             return false; // Player is not visible
         }
 

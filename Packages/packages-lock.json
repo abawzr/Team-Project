@@ -13,12 +13,6 @@
       },
       "hash": "e35dbd7f157d8fdfac3ea33189f4682101b6e613"
     },
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
     "com.genies.avatar-sdk.client": {
       "version": "file:com.genies.avatar-sdk.client",
       "depth": 0,
@@ -43,6 +37,12 @@
         "com.unity.timeline": "1.7.6",
         "com.unity.ugui": "1.0.0"
       }
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.addressables": {
       "version": "2.7.4",
@@ -99,8 +99,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cloud.ktx": {
-      "version": "3.5.0",
-      "depth": 1,
+      "version": "3.6.1",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.unitywebrequest": "1.0.0"
