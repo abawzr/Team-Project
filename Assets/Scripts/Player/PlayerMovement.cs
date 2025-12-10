@@ -1,10 +1,8 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float jumpPower;
     [SerializeField] private float gravity;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
@@ -15,8 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _movementDirection;
     private float _inputX;
     private float _inputY;
-    private bool _canDoubleJump;
-    private bool _isCrouch;
     private float _verticalVelocity;
     private float _stepTimer;
 
@@ -40,26 +36,14 @@ public class PlayerMovement : MonoBehaviour
             _inputX = Input.GetAxisRaw("Horizontal");
             _inputY = Input.GetAxisRaw("Vertical");
 
-            // Check if player is grounded, then assign true to canDoubleJump variable
-            if (_controller.isGrounded)
-            {
-                _canDoubleJump = true;
-            }
-
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 movementSpeed = 7;
-                // footstepInterval = ;
             }
             else
             {
                 movementSpeed = 3;
-                // footstepInterval = ;
             }
-
-            Jump();
-
-            Crouch();
 
             CalculateMovement();
 
@@ -93,47 +77,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _verticalVelocity += gravity * Time.deltaTime;
-        }
-    }
-
-    private void Jump()
-    {
-        // First Jump
-        // Check if player pressed jump button and player is grounded and is not crouched, then assign jumpPower to verticalVelocity variable
-        if (Input.GetButtonDown("Jump") && _controller.isGrounded && !_isCrouch)
-        {
-            _verticalVelocity = jumpPower;
-        }
-
-        // Double Jump
-        // Check if player pressed jump button and player is not grounded and can double jump and is not crouched,
-        //  then assign jumpPower to verticalVelocity variable, assign false to canDoubleJump variable
-        //  limit the player from jumping twice
-        else if (Input.GetButtonDown("Jump") && !_controller.isGrounded && _canDoubleJump && !_isCrouch)
-        {
-            _verticalVelocity = jumpPower;
-            _canDoubleJump = false;
-        }
-    }
-
-    private void Crouch()
-    {
-        // Check if player pressed C key and the scale of y is equal to 1 and player is grounded, 
-        //  then set the scale of y to 0.5f, and set isCrouch variable to true 
-        if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 1f && _controller.isGrounded)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
-            _isCrouch = true;
-            movementSpeed -= 2f;
-        }
-
-        // Check if player pressed C key and the scale of y is equal to 0.5, 
-        //  then set the scale of y to 1f, and set isCrouch variable to false
-        else if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 0.5f)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
-            _isCrouch = false;
-            movementSpeed += 2f;
         }
     }
 

@@ -6,11 +6,9 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
 
-    private bool _isPlayerHidden;
-
     private void Hide()
     {
-        _isPlayerHidden = true;
+        PlayerInteraction.IsPlayerHidden = true;
 
         PlayerMovement.IsMovementInputOn = false;
         PlayerCamera.IsCameraInputOn = false;
@@ -23,7 +21,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     private void Exit()
     {
-        _isPlayerHidden = false;
+        PlayerInteraction.IsPlayerHidden = false;
 
         PlayerMovement.IsMovementInputOn = true;
         PlayerCamera.IsCameraInputOn = true;
@@ -36,7 +34,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory playerInventory)
     {
-        if (_isPlayerHidden)
+        if (PlayerInteraction.IsPlayerHidden)
         {
             Exit();
         }
