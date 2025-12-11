@@ -15,5 +15,6 @@ public class Room0Door : MonoBehaviour, IInteractable
             IsSolved = true;
             Destroy(this);
         }
+        
     }
 }

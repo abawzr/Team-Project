@@ -7,7 +7,15 @@ public class Note : MonoBehaviour, IInteractable
     [SerializeField] private GameObject notePanelUI;
     [SerializeField] private GameObject crosshairUI;
     [SerializeField] private TMP_Text tmpText;
+    
+    
+    [Header("Sound Settings")]
+    [SerializeField] private AudioSource audioSource;   
+    [SerializeField] private AudioClip pickupSound;    
 
+
+    
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && notePanelUI.activeSelf)
@@ -21,6 +29,12 @@ public class Note : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory playerInventory)
     {
+        
+        if (audioSource != null && pickupSound != null)
+        {
+            audioSource.PlayOneShot(pickupSound);
+        }
+        
         notePanelUI.SetActive(true);
         crosshairUI.SetActive(false);
         tmpText.text = noteText;
