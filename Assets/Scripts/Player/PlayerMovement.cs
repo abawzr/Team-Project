@@ -1,20 +1,13 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float jumpPower;
     [SerializeField] private float gravity;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float walkStepInterval;
     [SerializeField] private float runStepInterval;
-    [Header("Jump Sound Settings")]
-    [SerializeField] private AudioClip jumpSound;
-    [SerializeField] private AudioClip doubleJumpSound;
-    [SerializeField] private float jumpVolume = 1f;
-
 
     private CharacterController _controller;
     private Vector3 _movementDirection;
@@ -24,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _isCrouch;
     private float _verticalVelocity;
     private float _stepTimer;
-    private AudioSource audioSource;
 
     public static bool IsMovementInputOn { get; set; }
 
@@ -33,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         // Get Character Controller component from same game object this script attached to
         _controller = GetComponent<CharacterController>();
         IsMovementInputOn = true;
-        audioSource = GetComponent<AudioSource>();    }
+    }
 
     private void Update()
     {
@@ -46,26 +38,14 @@ public class PlayerMovement : MonoBehaviour
             _inputX = Input.GetAxisRaw("Horizontal");
             _inputY = Input.GetAxisRaw("Vertical");
 
-            // Check if player is grounded, then assign true to canDoubleJump variable
-            if (_controller.isGrounded)
-            {
-                _canDoubleJump = true;
-            }
-
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 movementSpeed = 7;
-                // footstepInterval = ;
             }
             else
             {
                 movementSpeed = 3;
-                // footstepInterval = ;
             }
-
-            Jump();
-
-            Crouch();
 
             CalculateMovement();
 
@@ -99,59 +79,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _verticalVelocity += gravity * Time.deltaTime;
-        }
-    }
-
-    private void Jump()
-    {
-        // First Jump
-        // Check if player pressed jump button and player is grounded and is not crouched, then assign jumpPower to verticalVelocity variable
-        if (Input.GetButtonDown("Jump") && _controller.isGrounded && !_isCrouch)
-        {
-            _verticalVelocity = jumpPower;
-        
-            // صوت القفزة الأولى
-            if (jumpSound != null)
-            {
-                audioSource.PlayOneShot(jumpSound, jumpVolume);
-            }
-        }
-
-        // Double Jump
-        // Check if player pressed jump button and player is not grounded and can double jump and is not crouched,
-        //  then assign jumpPower to verticalVelocity variable, assign false to canDoubleJump variable
-        //  limit the player from jumping twice
-        else if (Input.GetButtonDown("Jump") && !_controller.isGrounded && _canDoubleJump && !_isCrouch)
-        {
-            _verticalVelocity = jumpPower;
-            _canDoubleJump = false;
-        
-            // صوت القفزة المزدوجة
-            if (doubleJumpSound != null)
-            {
-                audioSource.PlayOneShot(doubleJumpSound, jumpVolume);
-            }
-        }
-    }
-
-    private void Crouch()
-    {
-        // Check if player pressed C key and the scale of y is equal to 1 and player is grounded, 
-        //  then set the scale of y to 0.5f, and set isCrouch variable to true 
-        if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 1f && _controller.isGrounded)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
-            _isCrouch = true;
-            movementSpeed -= 2f;
-        }
-
-        // Check if player pressed C key and the scale of y is equal to 0.5, 
-        //  then set the scale of y to 1f, and set isCrouch variable to false
-        else if (Input.GetKeyDown(KeyCode.C) && transform.localScale.y == 0.5f)
-        {
-            transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
-            _isCrouch = false;
-            movementSpeed += 2f;
         }
     }
 
