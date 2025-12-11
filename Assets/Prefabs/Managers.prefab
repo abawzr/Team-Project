@@ -90,7 +90,6 @@ MonoBehaviour:
   excludedItemsFromRandomRespawn:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &7194991812885436673
 GameObject:
   m_ObjectHideFlags: 0
