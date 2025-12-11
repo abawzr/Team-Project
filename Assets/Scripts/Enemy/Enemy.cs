@@ -5,6 +5,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float runningSpeed;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float viewAngle = 60f;
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetBool("IsChasing", true);
 
                 // Speed up the enemy and make it follow player
-                _navMeshAgent.speed = 5f;
+                _navMeshAgent.speed = runningSpeed;
                 _navMeshAgent.SetDestination(playerTransform.position);
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= jumpscareDistance)
@@ -92,7 +94,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetBool("IsChasing", false);
 
                 // Slow down the enemy and make him patrolling
-                _navMeshAgent.speed = 3.5f;
+                _navMeshAgent.speed = walkingSpeed;
                 if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
                 {
                     NextPoint();
@@ -142,6 +144,11 @@ public class Enemy : MonoBehaviour
 
             if (tempIndex != _currentPatrolPoint)
             {
+                if (tempIndex == 7 && !Room0Door.IsSolved)
+                {
+                    continue;
+                }
+
                 _currentPatrolPoint = tempIndex;
                 break;
             }

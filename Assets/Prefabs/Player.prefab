@@ -485,8 +485,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0.1
+  m_StepOffset: 0.15
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -539,6 +539,9 @@ MonoBehaviour:
   interacitonLayer:
     serializedVersion: 2
     m_Bits: 119
+  crosshairGameObjectUI: {fileID: 0}
+  redCircleCrosshair: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  handCrosshair: {fileID: -2062982006, guid: 497b0ff13c1a66942912542c1979bcd6, type: 3}
 --- !u!114 &5786278119703130646
 MonoBehaviour:
   m_ObjectHideFlags: 0
