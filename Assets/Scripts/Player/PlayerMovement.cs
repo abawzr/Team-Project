@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float walkStepInterval;
     [SerializeField] private float runStepInterval;
+    [Header("Jump Sound Settings")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip doubleJumpSound;
+    [SerializeField] private float jumpVolume = 1f;
+
 
     private CharacterController _controller;
     private Vector3 _movementDirection;
@@ -19,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isCrouch;
     private float _verticalVelocity;
     private float _stepTimer;
+    private AudioSource audioSource;
 
     public static bool IsMovementInputOn { get; set; }
 
@@ -27,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         // Get Character Controller component from same game object this script attached to
         _controller = GetComponent<CharacterController>();
         IsMovementInputOn = true;
-    }
+        audioSource = GetComponent<AudioSource>();    }
 
     private void Update()
     {
@@ -103,6 +109,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _controller.isGrounded && !_isCrouch)
         {
             _verticalVelocity = jumpPower;
+        
+            // صوت القفزة الأولى
+            if (jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound, jumpVolume);
+            }
         }
 
         // Double Jump
@@ -113,6 +125,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _verticalVelocity = jumpPower;
             _canDoubleJump = false;
+        
+            // صوت القفزة المزدوجة
+            if (doubleJumpSound != null)
+            {
+                audioSource.PlayOneShot(doubleJumpSound, jumpVolume);
+            }
         }
     }
 

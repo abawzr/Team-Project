@@ -11,5 +11,6 @@ public class Room0Door : MonoBehaviour, IInteractable
             playerInventory.UseItem();
             transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
         }
+        
     }
 }
