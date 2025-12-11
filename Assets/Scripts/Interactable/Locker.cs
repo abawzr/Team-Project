@@ -32,17 +32,14 @@ public class Locker : MonoBehaviour, IInteractable
         playerController.enabled = true;
     }
 
-    private void Update()
+    public void Interact(PlayerInventory playerInventory)
     {
-        if (PlayerInteraction.IsPlayerHidden && Input.GetButtonDown("Fire1"))
+        if (PlayerInteraction.IsPlayerHidden)
         {
             Exit();
         }
-    }
 
-    public void Interact(PlayerInventory playerInventory)
-    {
-        if (!PlayerInteraction.IsPlayerHidden)
+        else
         {
             Hide();
         }
