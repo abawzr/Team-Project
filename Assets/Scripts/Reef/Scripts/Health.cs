@@ -70,7 +70,7 @@ public class Health : MonoBehaviour
 
         //UpdateVisualEffects();
         float m = maxHealth / 2;
-
+       
         if (CurrentHealth <= m && CurrentHealth > 0f)
         {
             HideBodyParts(true);

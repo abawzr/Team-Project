@@ -9,6 +9,5 @@ public class BodyPart : MonoBehaviour, IInteractable
     public void Interact(PlayerInventory playerInventory)
     {
         playerInventory.PickItem(gameObject, itemIcon);
-       // gameObject.SetActive(false);
     }
 }

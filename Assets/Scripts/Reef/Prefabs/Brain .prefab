@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5503654520587104226}
   - component: {fileID: 2629506223987453336}
   - component: {fileID: 9104702112591147262}
-  - component: {fileID: 2178670672897781879}
   m_Layer: 0
   m_Name: brain.1
   m_TagString: Untagged
@@ -90,29 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2178670672897781879
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5311979184968347468}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 49.551693
-  m_Height: 85.46433
-  m_Direction: 1
-  m_Center: {x: -0.1856613, y: 20.541418, z: 5.702125}
 --- !u!1 &7259685950263893289
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2712354092333187155}
   - component: {fileID: 3246296213629989963}
+  - component: {fileID: 162363926099233102}
   m_Layer: 0
   m_Name: 'Brain '
   m_TagString: Untagged
@@ -160,3 +137,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BodyPart
   itemIcon: {fileID: 902411316, guid: c2acf6f85d94257498c8d7a75d4cecad, type: 3}
   weight: 3
+--- !u!135 &162363926099233102
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259685950263893289}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 46.9
+  m_Center: {x: 0, y: 22.5, z: -0.4068231}
