@@ -48,7 +48,7 @@ public class MainMenu : MonoBehaviour
     void PlayGame()
     {
         // Load your game scene
-        SceneManager.LoadScene("Faisal_Scene");
+        SceneManager.LoadScene("Faisal-Map");
     }
     
     void OpenSettings()
