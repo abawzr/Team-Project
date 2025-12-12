@@ -41,7 +41,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     _currentTarget = interactableObject;
 
-                    _crosshairRectUI.sizeDelta = new Vector2(60f, 60f);
+                    _crosshairRectUI.sizeDelta = new Vector2(60f, 80f);
                     _crosshairImageUI.sprite = handCrosshair;
                 }
 
