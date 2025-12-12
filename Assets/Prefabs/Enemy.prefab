@@ -216,7 +216,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2.4444275
+  MinDistance: 2.061325
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1187,7 +1187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4918827221145651924
 Transform:
   m_ObjectHideFlags: 0
@@ -1273,15 +1273,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  walkingSpeed: 3.5
+  runningSpeed: 5.5
   playerTransform: {fileID: 0}
-  cameraTransform: {fileID: 0}
   viewAngle: 80
   viewDistance: 25
   excludeEnemyLayer:
     serializedVersion: 2
     m_Bits: 831
-  jumpscarePointTransform: {fileID: 0}
-  jumpscareDistance: 1.5
+  triggerJumpscareDistance: 2
   footstepAudioSource: {fileID: 1732960000391989210}
   footstepClip: {fileID: 8300000, guid: ac309885e80b0554493b10f2a70b6986, type: 3}
   walkStepInterval: 0.7

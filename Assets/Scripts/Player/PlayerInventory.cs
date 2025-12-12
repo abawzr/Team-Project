@@ -27,7 +27,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (CurrentItem != null)
         {
-            CurrentItem.transform.position = item.GetComponent<MeshRenderer>().bounds.center;
+            CurrentItem.transform.position = item.transform.position;
 
             CurrentItem.SetActive(true);
         }

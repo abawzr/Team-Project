@@ -1,0 +1,59 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class MainMenu : MonoBehaviour
+{
+    [Header("Menus")]
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject settingsPanel;
+
+    [Header("Main Menu Buttons")]
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button quitButton;
+
+    [Header("Settings Menu")]
+    [SerializeField] private Button backButton;
+
+    private void Start()
+    {
+        // Show main menu, hide settings
+        BackToMainMenu();
+
+        // Setup button listeners
+        playButton.onClick.AddListener(PlayGame);
+        settingsButton.onClick.AddListener(OpenSettings);
+        quitButton.onClick.AddListener(QuitGame);
+        backButton.onClick.AddListener(BackToMainMenu);
+    }
+
+    // ======== Button Functions ========
+
+    private void PlayGame()
+    {
+        // Load your game scene
+        SceneManager.LoadScene("Abdullah-Map");
+    }
+
+    private void OpenSettings()
+    {
+        mainMenuPanel.SetActive(false);
+        settingsPanel.SetActive(true);
+    }
+
+    private void BackToMainMenu()
+    {
+        mainMenuPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+    }
+
+    private void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+}

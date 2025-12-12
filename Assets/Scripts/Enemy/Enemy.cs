@@ -5,13 +5,13 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float runningSpeed;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private Transform cameraTransform;
     [SerializeField] private float viewAngle = 60f;
     [SerializeField] private float viewDistance = 10f;
     [SerializeField] private LayerMask excludeEnemyLayer;
-    [SerializeField] private Transform jumpscarePointTransform;
-    [SerializeField] private float jumpscareDistance;
+    [SerializeField] private float triggerJumpscareDistance;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float walkStepInterval;
@@ -67,10 +67,10 @@ public class Enemy : MonoBehaviour
                 _animator.SetBool("IsChasing", true);
 
                 // Speed up the enemy and make it follow player
-                _navMeshAgent.speed = 5f;
+                _navMeshAgent.speed = runningSpeed;
                 _navMeshAgent.SetDestination(playerTransform.position);
 
-                if (Vector3.Distance(transform.position, playerTransform.position) <= jumpscareDistance)
+                if (Vector3.Distance(transform.position, playerTransform.position) <= triggerJumpscareDistance)
                 {
                     PlayerMovement.IsMovementInputOn = false;
                     PlayerCamera.IsCameraInputOn = false;
@@ -79,10 +79,7 @@ public class Enemy : MonoBehaviour
                     _navMeshAgent.acceleration = 0f;
                     _navMeshAgent.velocity = Vector3.zero;
 
-                    transform.position = jumpscarePointTransform.position;
-                    transform.rotation = jumpscarePointTransform.localRotation;
-
-                    _animator.SetBool("IsJumpscare", true);
+                    // Jumpscare here
 
                     _isJumpscareOccurred = true;
                 }
@@ -92,7 +89,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetBool("IsChasing", false);
 
                 // Slow down the enemy and make him patrolling
-                _navMeshAgent.speed = 3.5f;
+                _navMeshAgent.speed = walkingSpeed;
                 if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
                 {
                     NextPoint();
@@ -142,6 +139,11 @@ public class Enemy : MonoBehaviour
 
             if (tempIndex != _currentPatrolPoint)
             {
+                if (tempIndex == 7 && !Room0Door.IsSolved)
+                {
+                    continue;
+                }
+
                 _currentPatrolPoint = tempIndex;
                 break;
             }
