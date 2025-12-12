@@ -7,38 +7,41 @@ public class Note : MonoBehaviour, IInteractable
     [SerializeField] private GameObject notePanelUI;
     [SerializeField] private GameObject crosshairUI;
     [SerializeField] private TMP_Text tmpText;
-    
-    
-    [Header("Sound Settings")]
-    [SerializeField] private AudioSource audioSource;   
-    [SerializeField] private AudioClip pickupSound;    
+    [SerializeField] private AudioClip pickupSound;
 
+    private AudioSource _audioSource;
 
-    
-    
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && notePanelUI.activeSelf)
+        if (Input.GetKeyDown(KeyCode.E) && notePanelUI.activeSelf)
         {
             notePanelUI.SetActive(false);
             crosshairUI.SetActive(true);
+
             PlayerMovement.IsMovementInputOn = true;
             PlayerCamera.IsCameraInputOn = true;
+            PlayerInteraction.IsPlayerReading = false;
         }
     }
 
     public void Interact(PlayerInventory playerInventory)
     {
-        
-        if (audioSource != null && pickupSound != null)
+        if (_audioSource != null && pickupSound != null && !notePanelUI.activeSelf)
         {
-            audioSource.PlayOneShot(pickupSound);
+            _audioSource.PlayOneShot(pickupSound);
         }
-        
+
         notePanelUI.SetActive(true);
         crosshairUI.SetActive(false);
         tmpText.text = noteText;
+
         PlayerMovement.IsMovementInputOn = false;
         PlayerCamera.IsCameraInputOn = false;
+        PlayerInteraction.IsPlayerReading = true;
     }
 }

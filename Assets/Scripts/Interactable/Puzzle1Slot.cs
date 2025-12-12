@@ -4,8 +4,19 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
 {
     [SerializeField] private Puzzle1 puzzle; // Reference to the puzzle manager
     [SerializeField] private GameObject correctItem; // The item that belongs in this slot
+    [SerializeField] private GameObject alreadyPlacedItem;
 
     private GameObject _currentItem;
+
+    private void Awake()
+    {
+        if (alreadyPlacedItem != null)
+        {
+            alreadyPlacedItem.transform.position = transform.position;
+            alreadyPlacedItem.SetActive(true);
+            _currentItem = alreadyPlacedItem;
+        }
+    }
 
     public void Interact(PlayerInventory playerInventory)
     {

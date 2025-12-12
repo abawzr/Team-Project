@@ -1,39 +1,34 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
-    [Header("Sound Settings")]
+    [SerializeField] private Sprite itemIcon;
     [SerializeField] private AudioClip pickupSound;
-    [SerializeField] private float volume = 1f;
-    
-    
-    private AudioSource audioSource;
+
+    private AudioSource _audioSource;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
+    private IEnumerator PickupItem(PlayerInventory playerInventory)
+    {
+        _audioSource.PlayOneShot(pickupSound);
 
-    [SerializeField] private Sprite itemIcon;
+        yield return new WaitForSeconds(pickupSound.length);
+
+        playerInventory.PickItem(gameObject, itemIcon);
+    }
 
     public void Interact(PlayerInventory playerInventory)
     {
-        playerInventory.PickItem(gameObject, itemIcon);
-        StartCoroutine(PickupSound(playerInventory));
-
+        StartCoroutine(PickupItem(playerInventory));
     }
 
     public Sprite GetItemIcon()
     {
         return itemIcon;
-    }
-
-    private IEnumerator PickupSound(PlayerInventory playerInventory)
-    {
-        audioSource.PlayOneShot(pickupSound);
-        yield return new WaitForSeconds(pickupSound.length);
-        playerInventory.PickItem(gameObject, itemIcon);
     }
 }

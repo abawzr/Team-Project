@@ -18,8 +18,14 @@ public class Puzzle1 : MonoBehaviour
             }
         }
 
-        // All slots correct puzzle solved
+        // All slots correct, puzzle solved
         IsSolved = true;
+
+        foreach (Puzzle1Slot slot in slots)
+        {
+            Destroy(slot);
+        }
+
         Debug.Log("Puzzle 1 Solved");
         // mainDoor.Lock1 = true;
     }

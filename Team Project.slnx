@@ -5,7 +5,6 @@
   <Project Path="Newtonsoft.Json.UnityConverters.csproj" />
   <Project Path="Toolbox.Editor.csproj" />
   <Project Path="Genies.Utilities.csproj" />
-  <Project Path="Boxophobic.Utils.Scripts.csproj" />
   <Project Path="Genies.UIFramework.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Editor.csproj" />
   <Project Path="Genies.Avatars.Services.csproj" />
@@ -24,7 +23,6 @@
   <Project Path="Toolbox.csproj" />
   <Project Path="Genies.NafPlugin.csproj" />
   <Project Path="Genies.ServiceManagement.csproj" />
-  <Project Path="Boxophobic.Utils.Editor.csproj" />
   <Project Path="Genies.Ugc.csproj" />
   <Project Path="Genies.Wearables.csproj" />
   <Project Path="Genies.Inventory.csproj" />
@@ -77,7 +75,6 @@
   <Project Path="Genies.Dynamics.csproj" />
   <Project Path="Genies.Utilities.Editor.csproj" />
   <Project Path="Genies.Services.DynamicConfigs.csproj" />
-  <Project Path="Boxophobic.SkyboxCubemapExtended.Editor.csproj" />
   <Project Path="Genies.Analytics.csproj" />
   <Project Path="Genies.CameraSystem.csproj" />
   <Project Path="Genies.DiskCaching.csproj" />
