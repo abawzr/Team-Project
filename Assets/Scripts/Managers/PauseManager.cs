@@ -73,10 +73,4 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f; // Reset time scale before loading
         SceneManager.LoadScene("MainMenuScene"); // Replace with your main menu scene name
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-        // This only works in a built game, not in the Unity Editor
-    }
 }
