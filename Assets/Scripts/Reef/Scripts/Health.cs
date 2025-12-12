@@ -11,11 +11,12 @@ public class Health : MonoBehaviour
 {
     public static Health Instance { get; private set; }
     [SerializeField] private GameObject[] bodyParts;
-    [SerializeField] private float maxHealth = 300f;
-    
+    [SerializeField] private float maxHealth;
+    [SerializeField] private PlayerInventory playerInventory;
+
     private float CurrentHealth;
-   // [SerializeField] private float drainRate = 0.33f;
-   // [SerializeField] private float showItemsLastSeconds = 60f;
+    // [SerializeField] private float drainRate = 0.33f;
+    // [SerializeField] private float showItemsLastSeconds = 60f;
 
     [SerializeField] private Slider healthSlider;
 
@@ -24,7 +25,7 @@ public class Health : MonoBehaviour
     //private MotionBlur _motionBlur;
     //private DepthOfField _depthOfField;
 
-
+    public static bool CanSeeBodyParts { get; private set; }
 
     //start
     private void Awake()
@@ -42,7 +43,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         CurrentHealth = maxHealth;
-        HideBodyParts(false);
+        ShowBodyParts(false);
 
         if (healthSlider != null)
         {
@@ -70,33 +71,38 @@ public class Health : MonoBehaviour
 
         //UpdateVisualEffects();
         float m = maxHealth / 2;
-       
+
         if (CurrentHealth <= m && CurrentHealth > 0f)
         {
-            HideBodyParts(true);
+            ShowBodyParts(true);
+            CanSeeBodyParts = true;
         }
         else
         {
-            HideBodyParts(false);
+            ShowBodyParts(false);
+            CanSeeBodyParts = false;
         }
     }
 
-    
+
 
     public void AddDrug(float amount)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, maxHealth);
-    
+
         if (healthSlider != null)
             healthSlider.value = CurrentHealth;
     }
 
-    private void HideBodyParts(bool Hide)
+    private void ShowBodyParts(bool Hide)
     {
         foreach (var part in bodyParts)
         {
+            if (playerInventory.CurrentItem == part)
+                continue;
+
             if (part != null)
-                part.SetActive(Hide); 
+                part.SetActive(Hide);
         }
     }
 
@@ -104,18 +110,18 @@ public class Health : MonoBehaviour
     //{
     //    if (visionEffect == null) return;
 
-        
+
     //    float t = 1f - (CurrentHealth / maxHealth);
     //    t = Mathf.Clamp01(t);
 
-        
+
     //    if (_motionBlur != null)
     //    {
     //        _motionBlur.intensity.overrideState = true;
     //        _motionBlur.intensity.value = Mathf.Lerp(0f, 0.8f, t);
     //    }
 
-        
+
     //    if (_depthOfField != null)
     //    {
     //        _depthOfField.gaussianStart.overrideState = true;

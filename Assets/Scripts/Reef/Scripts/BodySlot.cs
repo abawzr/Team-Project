@@ -15,6 +15,8 @@ public class BodySlot : MonoBehaviour, IInteractable
     {
         if (puzzle.IsSolved) return;
 
+        if (!Health.CanSeeBodyParts) return;
+
         if (playerInventory.HasItem())
         {
             GameObject heldItem = playerInventory.CurrentItem;
@@ -28,6 +30,16 @@ public class BodySlot : MonoBehaviour, IInteractable
             Vector3 basePos = transform.position;
             Vector3 offset = new Vector3(0.15f * (_itemsInSlot.Count - 1), 0f, 0f);
 
+            if (_itemsInSlot.Count > 4)
+            {
+                offset = new Vector3(0.15f * (_itemsInSlot.Count - 4 - 1), 0f, 0.2f);
+
+                if (_itemsInSlot.Count > 8)
+                {
+                    offset = new Vector3(0.15f * (_itemsInSlot.Count - 8 - 1), 0f, 0.4f);
+                }
+            }
+
             playerInventory.PutItem(basePos + offset);
             heldItem.transform.rotation = transform.rotation;
         }
@@ -37,8 +49,8 @@ public class BodySlot : MonoBehaviour, IInteractable
             GameObject lastItem = _itemsInSlot[_itemsInSlot.Count - 1];
             _itemsInSlot.RemoveAt(_itemsInSlot.Count - 1);
 
-            Item itemScript = lastItem.GetComponent<Item>();
-            Sprite icon = itemScript != null ? itemScript.GetItemIcon() : null;
+            BodyPart itemScript = lastItem.GetComponent<BodyPart>();
+            Sprite icon = itemScript != null ? itemScript.GetBodyPartIcon() : null;
 
             playerInventory.PickItem(lastItem, icon);
         }
@@ -47,7 +59,7 @@ public class BodySlot : MonoBehaviour, IInteractable
 
         if (!puzzle.IsSolved)
         {
-           // PlayWrongWeightsound();
+            // PlayWrongWeightsound();
         }
     }
 
@@ -62,11 +74,12 @@ public class BodySlot : MonoBehaviour, IInteractable
 
             var part = go.GetComponent<BodyPart>();
             if (part != null)
-                totalWeight += part.weight;
+                totalWeight += part.Weight;
         }
 
         return totalWeight == requiredWeight;
     }
+
     private void Playsound()
     {
         float totalWeight = GetCurrentWeight();
@@ -87,7 +100,7 @@ public class BodySlot : MonoBehaviour, IInteractable
 
             var part = go.GetComponent<BodyPart>();
             if (part != null)
-                totalWeight += part.weight;
+                totalWeight += part.Weight;
         }
 
         return totalWeight;
