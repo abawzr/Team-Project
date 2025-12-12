@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     private IInteractable _currentTarget;
 
     public static bool IsPlayerHidden { get; set; }
+    public static bool IsPlayerReading { get; set; }
 
     private void OnDrawGizmos()
     {

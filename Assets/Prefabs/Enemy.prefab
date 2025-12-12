@@ -1187,7 +1187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4918827221145651924
 Transform:
   m_ObjectHideFlags: 0
@@ -1281,8 +1281,6 @@ MonoBehaviour:
   excludeEnemyLayer:
     serializedVersion: 2
     m_Bits: 831
-  jumpscareScreen: {fileID: 0}
-  videoPlayer: {fileID: 0}
   triggerJumpscareDistance: 2
   footstepAudioSource: {fileID: 1732960000391989210}
   footstepClip: {fileID: 8300000, guid: ac309885e80b0554493b10f2a70b6986, type: 3}
