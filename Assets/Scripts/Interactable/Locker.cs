@@ -5,9 +5,19 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private Transform hidePoint;
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
+    [SerializeField] private AudioClip enterClip;
+    [SerializeField] private AudioClip exitClip;
+
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Hide()
     {
+        _audioSource.PlayOneShot(enterClip);
         PlayerInteraction.IsPlayerHidden = true;
 
         PlayerMovement.IsMovementInputOn = false;
@@ -21,6 +31,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     private void Exit()
     {
+        _audioSource.PlayOneShot(exitClip);
         PlayerInteraction.IsPlayerHidden = false;
 
         PlayerMovement.IsMovementInputOn = true;

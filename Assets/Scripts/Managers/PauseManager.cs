@@ -37,7 +37,7 @@ public class PauseManager : MonoBehaviour
         _isPaused = true;
 
         // Show and unlock cursor for menu interaction
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
         PlayerCamera.IsCameraInputOn = false;
@@ -71,6 +71,6 @@ public class PauseManager : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f; // Reset time scale before loading
-        SceneManager.LoadScene("MainMenuScene"); // Replace with your main menu scene name
+        SceneManager.LoadSceneAsync("MainMenuScene"); // Replace with your main menu scene name
     }
 }

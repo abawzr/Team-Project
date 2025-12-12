@@ -20,6 +20,8 @@ public class Note : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.E) && notePanelUI.activeSelf)
         {
+            Time.timeScale = 1f;
+
             notePanelUI.SetActive(false);
             crosshairUI.SetActive(true);
 
@@ -31,17 +33,20 @@ public class Note : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory playerInventory)
     {
-        if (_audioSource != null && pickupSound != null && !notePanelUI.activeSelf)
+        if (!notePanelUI.activeSelf)
         {
+            Time.timeScale = 0f;
+
             _audioSource.PlayOneShot(pickupSound);
+
+            notePanelUI.SetActive(true);
+            crosshairUI.SetActive(false);
+            tmpText.text = noteText;
+
+            PlayerMovement.IsMovementInputOn = false;
+            PlayerCamera.IsCameraInputOn = false;
+            PlayerInteraction.IsPlayerReading = true;
         }
 
-        notePanelUI.SetActive(true);
-        crosshairUI.SetActive(false);
-        tmpText.text = noteText;
-
-        PlayerMovement.IsMovementInputOn = false;
-        PlayerCamera.IsCameraInputOn = false;
-        PlayerInteraction.IsPlayerReading = true;
     }
 }

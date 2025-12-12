@@ -6,8 +6,17 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private Image uiItemImage;
     [SerializeField] private TMP_Text uiItemText;
+    [SerializeField] private AudioClip pickItemClip;
+    [SerializeField] private AudioClip putItemClip;
+
+    private AudioSource _audioSource;
 
     public GameObject CurrentItem { get; private set; }
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     public bool HasItem()
     {
@@ -25,6 +34,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickItem(GameObject item, Sprite itemIcon)
     {
+        _audioSource.PlayOneShot(pickItemClip);
+
         if (CurrentItem != null)
         {
             CurrentItem.transform.position = item.transform.position;
@@ -45,6 +56,8 @@ public class PlayerInventory : MonoBehaviour
     {
         // There is no item in inventory
         if (CurrentItem == null) return;
+
+        _audioSource.PlayOneShot(putItemClip);
 
         CurrentItem.transform.position = placePoint;
 
