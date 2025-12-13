@@ -4,8 +4,19 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
 {
     [SerializeField] private Puzzle1 puzzle; // Reference to the puzzle manager
     [SerializeField] private GameObject correctItem; // The item that belongs in this slot
+    [SerializeField] private GameObject alreadyPlacedItem;
 
     private GameObject _currentItem;
+
+    private void Awake()
+    {
+        if (alreadyPlacedItem != null)
+        {
+            alreadyPlacedItem.transform.position = transform.position;
+            alreadyPlacedItem.SetActive(true);
+            _currentItem = alreadyPlacedItem;
+        }
+    }
 
     public void Interact(PlayerInventory playerInventory)
     {
@@ -14,6 +25,8 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
         // Player has item AND slot is empty → place item
         if (playerInventory.HasItem() && _currentItem == null)
         {
+            if (!playerInventory.CurrentItem.TryGetComponent<Item>(out _)) return;
+
             _currentItem = playerInventory.CurrentItem;
             playerInventory.PutItem(transform.position);
         }
@@ -21,6 +34,8 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
         // Player has item AND slot has item → swap items
         else if (playerInventory.HasItem() && _currentItem != null)
         {
+            if (!playerInventory.CurrentItem.TryGetComponent<Item>(out _)) return;
+
             GameObject slotItem = _currentItem;
             GameObject playerItem = playerInventory.CurrentItem;
 

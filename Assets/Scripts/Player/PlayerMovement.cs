@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float runningSpeed;
     [SerializeField] private float gravity;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _movementDirection;
     private float _inputX;
     private float _inputY;
+    private float _playerSpeed;
     private float _verticalVelocity;
     private float _stepTimer;
 
@@ -38,11 +40,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                movementSpeed = 7;
+                _playerSpeed = runningSpeed;
             }
             else
             {
-                movementSpeed = 3;
+                _playerSpeed = walkingSpeed;
             }
 
             CalculateMovement();
@@ -55,8 +57,8 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get the X axis of player and multiply by inputX (A/D) and add it to the Z axis of player and multiply by inputY (W/S),
         //  then normalize the vector to make magnitude always 1 instead of 1.43 when moving diagnolly
-        //  then multiply by movementSpeed
-        _movementDirection = (transform.right * _inputX + transform.forward * _inputY).normalized * movementSpeed;
+        //  then multiply by player speed
+        _movementDirection = (transform.right * _inputX + transform.forward * _inputY).normalized * _playerSpeed;
 
         // Set the Y axis of movementDirection vector to verticalVelocity variable
         _movementDirection.y = _verticalVelocity;
@@ -91,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float stepInterval = movementSpeed < 5 ? walkStepInterval : runStepInterval;
+        float stepInterval = _playerSpeed < 5 ? walkStepInterval : runStepInterval;
 
         _stepTimer += Time.deltaTime;
 
