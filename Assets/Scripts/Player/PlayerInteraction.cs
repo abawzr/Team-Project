@@ -17,6 +17,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public static bool IsPlayerHidden { get; set; }
     public static bool IsPlayerReading { get; set; }
+    public static bool CanInteract { get; set; }
 
     private void OnDrawGizmos()
     {
@@ -33,6 +34,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (!CanInteract) return;
+
         if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hitInfo, interactionRayDistance, interacitonLayer))
         {
             if (hitInfo.collider.TryGetComponent(out IInteractable interactableObject))

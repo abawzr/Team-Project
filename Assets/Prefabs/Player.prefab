@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09eaccee6e33ff44a8c05c40170dc486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  ending: {fileID: 0}
   bodyParts:
   - {fileID: 0}
   - {fileID: 0}
@@ -550,7 +551,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  maxHealth: 100
+  maxHealth: 5
   playerInventory: {fileID: 5786278119703130646}
   healthSlider: {fileID: 0}
   volumeProfile: {fileID: 6405301897808560490}

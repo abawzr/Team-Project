@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
-    [SerializeField] private Animator ending1Animator;
-    [SerializeField] private Animator ending2Animator;
+    [SerializeField] private Animator endingAnimator;
     [SerializeField] private AudioClip musicClip;
 
     private AudioSource _audioSource;
@@ -19,10 +18,11 @@ public class Ending : MonoBehaviour
     {
         PlayerCamera.IsCameraInputOn = false;
         PlayerMovement.IsMovementInputOn = false;
+        PlayerInteraction.CanInteract = false;
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
-        ending1Animator.SetTrigger("TriggerEnding");
+        endingAnimator.SetTrigger("TriggerEnding1");
         _audioSource.PlayOneShot(musicClip);
 
         yield return new WaitForSeconds(musicClip.length);
@@ -34,10 +34,11 @@ public class Ending : MonoBehaviour
     {
         PlayerCamera.IsCameraInputOn = false;
         PlayerMovement.IsMovementInputOn = false;
+        PlayerInteraction.CanInteract = false;
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
-        ending2Animator.SetTrigger("TriggerEnding");
+        endingAnimator.SetTrigger("TriggerEnding2");
         _audioSource.PlayOneShot(musicClip);
 
         yield return new WaitForSeconds(musicClip.length);

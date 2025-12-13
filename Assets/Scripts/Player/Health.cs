@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private Ending ending;
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private float maxHealth;
     [SerializeField] private PlayerInventory playerInventory;
@@ -42,7 +43,10 @@ public class Health : MonoBehaviour
             _currentHealth -= Time.deltaTime;
 
             if (_currentHealth < 0f)
+            {
                 _currentHealth = 0f;
+                ending.TriggerEnding2();
+            }
         }
 
         if (healthSlider != null)
@@ -52,7 +56,7 @@ public class Health : MonoBehaviour
 
         float m = maxHealth / 2;
 
-        if (_currentHealth <= 80 && _currentHealth > 0f)
+        if (_currentHealth <= m && _currentHealth > 0f)
         {
             ShowBodyParts(true);
             CanSeeBodyParts = true;
