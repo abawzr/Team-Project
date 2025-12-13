@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
     private bool _isJumpscareOccurred;
     private float _screamTimer = 10f;
 
+    public static bool CanMove { get; set; }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -55,6 +57,8 @@ public class Enemy : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+
+        CanMove = true;
     }
 
     private void Start()
@@ -66,6 +70,14 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (!CanMove)
+        {
+            _navMeshAgent.enabled = false;
+            _audioSource.enabled = false;
+            chasingScreamAudioSource.enabled = false;
+            return;
+        }
+
         _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
 
         if (!_isJumpscareOccurred)

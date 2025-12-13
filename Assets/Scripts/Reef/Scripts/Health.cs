@@ -1,29 +1,18 @@
-﻿using UMA;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-
-//searching for a butter name
 public class Health : MonoBehaviour
 {
-    public static Health Instance { get; private set; }
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private float maxHealth;
     [SerializeField] private PlayerInventory playerInventory;
-
-    private float CurrentHealth;
-    // [SerializeField] private float drainRate = 0.33f;
-    // [SerializeField] private float showItemsLastSeconds = 60f;
-
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private Volume volumeProfile;
 
-    //[SerializeField] private Volume visionEffect;
+    private float _currentHealth;
 
-    //private MotionBlur _motionBlur;
-    //private DepthOfField _depthOfField;
+    public static Health Instance { get; private set; }
 
     public static bool CanSeeBodyParts { get; private set; }
 
@@ -31,67 +20,58 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        //if (visionEffect != null && visionEffect.profile != null)
-        //{
-        //    visionEffect.profile.TryGet(out _motionBlur);
-        //    visionEffect.profile.TryGet(out _depthOfField);
-        //}
-
     }
 
     private void Start()
     {
-        CurrentHealth = maxHealth;
+        _currentHealth = maxHealth;
         ShowBodyParts(false);
 
         if (healthSlider != null)
         {
             healthSlider.minValue = 0f;
             healthSlider.maxValue = maxHealth;
-            healthSlider.value = CurrentHealth;
+            healthSlider.value = _currentHealth;
         }
     }
 
     private void Update()
     {
-
-        if (CurrentHealth > 0f)
+        if (_currentHealth > 0f)
         {
-            CurrentHealth -= Time.deltaTime;
+            _currentHealth -= Time.deltaTime;
 
-            if (CurrentHealth < 0f)
-                CurrentHealth = 0f;
+            if (_currentHealth < 0f)
+                _currentHealth = 0f;
         }
 
         if (healthSlider != null)
         {
-            healthSlider.value = CurrentHealth;
+            healthSlider.value = _currentHealth;
         }
 
-        //UpdateVisualEffects();
         float m = maxHealth / 2;
 
-        if (CurrentHealth <= m && CurrentHealth > 0f)
+        if (_currentHealth <= 80 && _currentHealth > 0f)
         {
             ShowBodyParts(true);
             CanSeeBodyParts = true;
+            volumeProfile.gameObject.SetActive(true);
         }
         else
         {
             ShowBodyParts(false);
             CanSeeBodyParts = false;
+            volumeProfile.gameObject.SetActive(false);
         }
     }
 
-
-
     public void AddDrug(float amount)
     {
-        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, maxHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0f, maxHealth);
 
         if (healthSlider != null)
-            healthSlider.value = CurrentHealth;
+            healthSlider.value = _currentHealth;
     }
 
     private void ShowBodyParts(bool Hide)
@@ -105,31 +85,4 @@ public class Health : MonoBehaviour
                 part.SetActive(Hide);
         }
     }
-
-    //private void UpdateVisualEffects()
-    //{
-    //    if (visionEffect == null) return;
-
-
-    //    float t = 1f - (CurrentHealth / maxHealth);
-    //    t = Mathf.Clamp01(t);
-
-
-    //    if (_motionBlur != null)
-    //    {
-    //        _motionBlur.intensity.overrideState = true;
-    //        _motionBlur.intensity.value = Mathf.Lerp(0f, 0.8f, t);
-    //    }
-
-
-    //    if (_depthOfField != null)
-    //    {
-    //        _depthOfField.gaussianStart.overrideState = true;
-    //        _depthOfField.gaussianEnd.overrideState = true;
-
-    //        _depthOfField.gaussianStart.value = Mathf.Lerp(10f, 2f, t);
-    //        _depthOfField.gaussianEnd.value = Mathf.Lerp(50f, 5f, t);
-    //    }
-    //}
-
 }

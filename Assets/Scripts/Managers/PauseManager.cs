@@ -6,16 +6,22 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
+
     private bool _isPaused = false;
+
+    public static bool CanPause { get; set; }
 
     private void Start()
     {
         // Make sure the pause menu is hidden at start
         pauseMenuPanel.SetActive(false);
+        CanPause = true;
     }
 
     private void Update()
     {
+        if (!CanPause) return;
+
         // Check if ESC or P key is pressed
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !PlayerInteraction.IsPlayerReading)
         {

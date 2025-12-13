@@ -4,7 +4,7 @@ public class BodyPart : MonoBehaviour, IInteractable
 {
     [SerializeField] private Sprite bodyPartIcon;
 
-    public int Weight { get; private set; }
+    public int Weight;
 
     public void Interact(PlayerInventory playerInventory)
     {

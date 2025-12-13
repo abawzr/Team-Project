@@ -135,8 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b6266c28058aa47a0276629a060422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BodyPart
-  itemIcon: {fileID: 902411316, guid: c2acf6f85d94257498c8d7a75d4cecad, type: 3}
-  weight: 3
+  bodyPartIcon: {fileID: 902411316, guid: c2acf6f85d94257498c8d7a75d4cecad, type: 3}
 --- !u!135 &162363926099233102
 SphereCollider:
   m_ObjectHideFlags: 0

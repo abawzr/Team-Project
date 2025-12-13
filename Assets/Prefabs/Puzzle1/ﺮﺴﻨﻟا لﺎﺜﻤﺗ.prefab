@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemIcon: {fileID: 21300000, guid: 009f53287a033a946a08281390daa822, type: 3}
-  pickupSound: {fileID: 8300000, guid: 10f13d31204424cd5af2548f1ebbdf34, type: 3}
 --- !u!82 &3870701213572603619
 AudioSource:
   m_ObjectHideFlags: 0

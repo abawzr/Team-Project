@@ -25,6 +25,8 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
         // Player has item AND slot is empty → place item
         if (playerInventory.HasItem() && _currentItem == null)
         {
+            if (!playerInventory.CurrentItem.TryGetComponent<Item>(out _)) return;
+
             _currentItem = playerInventory.CurrentItem;
             playerInventory.PutItem(transform.position);
         }
@@ -32,6 +34,8 @@ public class Puzzle1Slot : MonoBehaviour, IInteractable
         // Player has item AND slot has item → swap items
         else if (playerInventory.HasItem() && _currentItem != null)
         {
+            if (!playerInventory.CurrentItem.TryGetComponent<Item>(out _)) return;
+
             GameObject slotItem = _currentItem;
             GameObject playerItem = playerInventory.CurrentItem;
 

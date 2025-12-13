@@ -277,7 +277,6 @@ GameObject:
   - component: {fileID: 618495123465571772}
   - component: {fileID: 6405301897808560490}
   - component: {fileID: 613878496278746236}
-  - component: {fileID: 1926302216877880764}
   m_Layer: 0
   m_Name: PlayerHealthEffects
   m_TagString: Untagged
@@ -336,29 +335,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.48156616, y: 0.37477207, z: 0.4272628}
-  m_Center: {x: 0, y: 0.003045559, z: 0}
---- !u!65 &1926302216877880764
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5563239012468788014}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.48156616, y: 0.37477207, z: 0.4272628}
-  m_Center: {x: 0, y: 0.003045559, z: 0}
+  m_Size: {x: 0.54218245, y: 0.37477207, z: 0.4272628}
+  m_Center: {x: 0.030308096, y: 0.003045559, z: -0.0000000031943057}
 --- !u!1 &6246709254494815079
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,10 +541,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09eaccee6e33ff44a8c05c40170dc486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  bodyParts: []
-  maxHealth: 0
+  bodyParts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  maxHealth: 100
   playerInventory: {fileID: 5786278119703130646}
   healthSlider: {fileID: 0}
+  volumeProfile: {fileID: 6405301897808560490}
 --- !u!82 &47830315336216069
 AudioSource:
   m_ObjectHideFlags: 0
