@@ -277,13 +277,14 @@ GameObject:
   - component: {fileID: 618495123465571772}
   - component: {fileID: 6405301897808560490}
   - component: {fileID: 613878496278746236}
+  - component: {fileID: 1926302216877880764}
   m_Layer: 0
   m_Name: PlayerHealthEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &618495123465571772
 Transform:
   m_ObjectHideFlags: 0
@@ -337,6 +338,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.48156616, y: 0.37477207, z: 0.4272628}
   m_Center: {x: 0, y: 0.003045559, z: 0}
+--- !u!65 &1926302216877880764
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563239012468788014}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.48156616, y: 0.37477207, z: 0.4272628}
+  m_Center: {x: 0, y: 0.003045559, z: 0}
 --- !u!1 &6246709254494815079
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +375,7 @@ GameObject:
   - component: {fileID: 4371560456210452117}
   - component: {fileID: 5008955207012135967}
   - component: {fileID: 5786278119703130646}
+  - component: {fileID: 1210384519056259197}
   - component: {fileID: 47830315336216069}
   m_Layer: 3
   m_Name: Player
@@ -528,6 +551,22 @@ MonoBehaviour:
   uiItemText: {fileID: 0}
   pickItemClip: {fileID: 8300000, guid: 10f13d31204424cd5af2548f1ebbdf34, type: 3}
   putItemClip: {fileID: 8300000, guid: ced1021c374e9fe41a57788c2d7efbe1, type: 3}
+--- !u!114 &1210384519056259197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246709254494815079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eaccee6e33ff44a8c05c40170dc486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  bodyParts: []
+  maxHealth: 0
+  playerInventory: {fileID: 5786278119703130646}
+  healthSlider: {fileID: 0}
 --- !u!82 &47830315336216069
 AudioSource:
   m_ObjectHideFlags: 0

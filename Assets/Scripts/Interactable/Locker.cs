@@ -5,6 +5,7 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private Transform hidePoint;
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private AudioClip enterClip;
     [SerializeField] private AudioClip exitClip;
 
@@ -26,6 +27,7 @@ public class Locker : MonoBehaviour, IInteractable
         playerController.enabled = false;
         playerController.transform.position = hidePoint.position;
         playerController.transform.rotation = hidePoint.localRotation;
+        cameraTransform.transform.rotation = hidePoint.localRotation;
         playerController.enabled = true;
     }
 

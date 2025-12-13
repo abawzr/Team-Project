@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b616fdce65c1181429314cb9ceac97bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemIcon: {fileID: 69683097, guid: cc6635bdc8ccf344ea8298a4fe77e289, type: 3}
+  itemIcon: {fileID: 21300000, guid: 2a851d5405cedd548846f8b21acbd372, type: 3}
 --- !u!82 &3249285792864682344
 AudioSource:
   m_ObjectHideFlags: 0
