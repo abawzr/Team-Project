@@ -1,6 +1,7 @@
 ﻿// Script by Marcelli Michele
 
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -9,10 +10,11 @@ public class PadLockPassword : MonoBehaviour
     MoveRuller _moveRull;
     
     public Animator animator;
-    public Animator boxAnimator;  // ADD THIS: Reference to the box's animator
+    public Animator boxAnimator;  // Reference to the box's animator
     
     public AudioSource audioSource;
-
+    public AudioClip boxOpenSound;  // Drag your sound clip here in the Inspector
+    
     public int[] _numberPassword = {0,0,0,0};
     
     private bool isUnlocked = false;
@@ -41,10 +43,10 @@ public class PadLockPassword : MonoBehaviour
             
             animator.SetTrigger("open");
             
-            // ADD THIS: Open the box too!
+            // Open the box with sound
             if (boxAnimator != null)
             {
-                boxAnimator.SetTrigger("open");  // Make sure your box has an "open" trigger
+                StartCoroutine(OpenBox());
             }
 
             // Disable Blinking Material after the correct password
@@ -54,5 +56,14 @@ public class PadLockPassword : MonoBehaviour
                 _moveRull._rullers[i].GetComponent<PadLockEmissionColor>().BlinkingMaterial();
             }
         }
+    }
+    
+    private IEnumerator OpenBox()
+    {
+        audioSource.PlayOneShot(boxOpenSound);
+        
+        yield return new WaitForSeconds(boxOpenSound.length);
+        
+        boxAnimator.SetTrigger("open");
     }
 }

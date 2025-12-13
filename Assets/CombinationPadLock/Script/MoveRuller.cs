@@ -44,7 +44,7 @@ public class MoveRuller : MonoBehaviour
 
     void MoveRulles()
     {
-        if (Input.GetKeyDown(KeyCode.E)) 
+        if (Input.GetKeyDown(KeyCode.Y)) 
         {
             _isActveEmission = true;
             _changeRuller ++;
@@ -55,7 +55,7 @@ public class MoveRuller : MonoBehaviour
                 _numberRuller = 0;
             }
         }
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.T)) 
         {
             _isActveEmission = true;
             _changeRuller --;
