@@ -14,7 +14,6 @@
   <Project Path="Genies.Customizer.csproj" />
   <Project Path="Genies.Looks.csproj" />
   <Project Path="Genies.Avatars.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="UMA_Core.csproj" />
   <Project Path="Genies.Inventory.UIData.csproj" />
   <Project Path="UniTask.csproj" />
@@ -44,6 +43,7 @@
   <Project Path="Unity.VContainer.CodeGen.csproj" />
   <Project Path="Genies.ABTesting.csproj" />
   <Project Path="XNodeEditor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Newtonsoft.Json.UnityConverters.Mathematics.csproj" />
   <Project Path="UMI.Runtime.csproj" />
   <Project Path="Genies.Naf.csproj" />
