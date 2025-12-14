@@ -789,6 +789,34 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1906742328}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 100.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 124.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224123913227865486, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5777057030860528126, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -873,6 +901,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1906742328}
+    - target: {fileID: 8343376874194939013, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1dace04399427e84ab43f7945b066eb2, type: 3}
     - target: {fileID: 8802924841416073237, guid: f123c12bd392fcf42a96d928596e8010, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
