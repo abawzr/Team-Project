@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ending
   endingAnimator: {fileID: 0}
   musicClip: {fileID: 8300000, guid: 042b12c4758e37a4e8d00f3cda43291a, type: 3}
+  ambientAudioSource1: {fileID: 0}
+  ambientAudioSource2: {fileID: 0}
 --- !u!82 &3959841541162663491
 AudioSource:
   m_ObjectHideFlags: 0

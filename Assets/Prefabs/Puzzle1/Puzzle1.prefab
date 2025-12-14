@@ -410,3 +410,6 @@ MonoBehaviour:
   - {fileID: 1858196401832828895}
   - {fileID: 6982587933774687039}
   - {fileID: 1445570532339563271}
+  mainDoorAudioSource: {fileID: 0}
+  mainDoorUnlockClip: {fileID: 8300000, guid: 180c3b3430ccc644393c1edc7912e6f3, type: 3}
+  mainDoorTextAnimator: {fileID: 0}
