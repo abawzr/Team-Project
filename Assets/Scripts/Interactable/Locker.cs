@@ -5,12 +5,21 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private Transform hidePoint;
     [SerializeField] private Transform exitPoint;
     [SerializeField] private CharacterController playerController;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private AudioClip enterClip;
+    [SerializeField] private AudioClip exitClip;
 
-    private bool _isPlayerHidden;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Hide()
     {
-        _isPlayerHidden = true;
+        _audioSource.PlayOneShot(enterClip);
+        PlayerInteraction.IsPlayerHidden = true;
 
         PlayerMovement.IsMovementInputOn = false;
         PlayerCamera.IsCameraInputOn = false;
@@ -18,12 +27,14 @@ public class Locker : MonoBehaviour, IInteractable
         playerController.enabled = false;
         playerController.transform.position = hidePoint.position;
         playerController.transform.rotation = hidePoint.localRotation;
+        cameraTransform.transform.rotation = hidePoint.localRotation;
         playerController.enabled = true;
     }
 
     private void Exit()
     {
-        _isPlayerHidden = false;
+        _audioSource.PlayOneShot(exitClip);
+        PlayerInteraction.IsPlayerHidden = false;
 
         PlayerMovement.IsMovementInputOn = true;
         PlayerCamera.IsCameraInputOn = true;
@@ -36,7 +47,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory playerInventory)
     {
-        if (_isPlayerHidden)
+        if (PlayerInteraction.IsPlayerHidden)
         {
             Exit();
         }
