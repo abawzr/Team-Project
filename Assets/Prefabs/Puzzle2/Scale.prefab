@@ -248,6 +248,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BodyPuzzle
   slots:
   - {fileID: 4198201730281212543}
+  mainDoorAudioSource: {fileID: 0}
+  mainDoorUnlockClip: {fileID: 8300000, guid: 180c3b3430ccc644393c1edc7912e6f3, type: 3}
+  mainDoorTextAnimator: {fileID: 0}
 --- !u!1 &271601783676012896
 GameObject:
   m_ObjectHideFlags: 0

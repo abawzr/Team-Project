@@ -30,7 +30,7 @@ public class Ending : MonoBehaviour
         endingAnimator.SetTrigger("TriggerEnding1");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length + 2f);
+        yield return new WaitForSeconds(musicClip.length + 8.5f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }
@@ -49,7 +49,7 @@ public class Ending : MonoBehaviour
         endingAnimator.SetTrigger("TriggerEnding2");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length + 2f);
+        yield return new WaitForSeconds(musicClip.length + 8.5f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }

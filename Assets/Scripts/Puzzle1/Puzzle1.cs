@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class Puzzle1 : MonoBehaviour
 {
-    // [SerializeField] private MainDoor mainDoor;
     [SerializeField] private Puzzle1Slot[] slots;
+    [SerializeField] private AudioSource mainDoorAudioSource;
+    [SerializeField] private AudioClip mainDoorUnlockClip;
+    [SerializeField] private Animator mainDoorTextAnimator;
+
+
     public bool IsSolved { get; private set; }
 
     public void CheckSolution()
@@ -26,7 +30,12 @@ public class Puzzle1 : MonoBehaviour
             Destroy(slot);
         }
 
-        Debug.Log("Puzzle 1 Solved");
-        MainDoor.Lock1 = false;
+        MainDoor.IsPuzzle1Solved = true;
+        mainDoorAudioSource.PlayOneShot(mainDoorUnlockClip);
+
+        if (MainDoor.IsPuzzle1Solved && MainDoor.IsPuzzle2Solved)
+        {
+            mainDoorTextAnimator.SetTrigger("Unlock");
+        }
     }
 }

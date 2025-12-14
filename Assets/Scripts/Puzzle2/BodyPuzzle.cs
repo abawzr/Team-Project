@@ -3,6 +3,9 @@
 public class BodyPuzzle : MonoBehaviour
 {
     [SerializeField] private BodySlot[] slots;
+    [SerializeField] private AudioSource mainDoorAudioSource;
+    [SerializeField] private AudioClip mainDoorUnlockClip;
+    [SerializeField] private Animator mainDoorTextAnimator;
 
     public bool IsSolved { get; private set; }
 
@@ -19,6 +22,12 @@ public class BodyPuzzle : MonoBehaviour
         }
 
         IsSolved = true;
-        MainDoor.Lock2 = false;
+        MainDoor.IsPuzzle2Solved = true;
+        mainDoorAudioSource.PlayOneShot(mainDoorUnlockClip);
+
+        if (MainDoor.IsPuzzle1Solved && MainDoor.IsPuzzle2Solved)
+        {
+            mainDoorTextAnimator.SetTrigger("Unlock");
+        }
     }
 }
