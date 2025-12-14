@@ -1,26 +1,41 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float runningSpeed;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private float viewAngle = 60f;
     [SerializeField] private float viewDistance = 10f;
-    [SerializeField] private LayerMask obstructionMask;
+    [SerializeField] private LayerMask excludeEnemyLayer;
+    [SerializeField] private float triggerJumpscareDistance;
+    [SerializeField] private AudioSource chasingScreamAudioSource;
+    [SerializeField] private AudioClip jumpscareClip;
+    [SerializeField] private AudioClip chasingScreamClip;
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField] private float walkStepInterval;
     [SerializeField] private float runStepInterval;
 
     private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
+    private AudioSource _audioSource;
     private int _currentPatrolPoint;
     private Vector3 _eyePosition;
     private Vector3 _directionToPlayer;
     private float _stepTimer;
+    private bool _isJumpscareOccurred;
+    private float _screamTimer = 10f;
 
-    private void OnDrawGizmosSelected()
+    public static bool CanMove { get; set; }
+
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
@@ -38,8 +53,12 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        // Get Nav Mesh Agent component from same game object this script attached to
+        // Get Nav Mesh Agent and Animator components from same game object this script attached to
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+
+        CanMove = true;
     }
 
     private void Start()
@@ -51,41 +70,79 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        // Check if enemy can see player
-        if (CanSeePlayer())
+        if (!CanMove)
         {
-            // Speed up the enemy and make it follow player
-            _navMeshAgent.speed = 5f;
-            _navMeshAgent.SetDestination(playerTransform.position);
-        }
-        else
-        {
-            // Slow down the enemy and make him patrolling
-            _navMeshAgent.speed = 3.5f;
-            if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
-            {
-                NextPoint();
-            }
+            _navMeshAgent.enabled = false;
+            _audioSource.enabled = false;
+            chasingScreamAudioSource.enabled = false;
+            return;
         }
 
-        PlayFootstep();
+        _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+
+        if (!_isJumpscareOccurred)
+        {
+            _screamTimer -= Time.deltaTime;
+
+            // Check if enemy can see player
+            if (CanSeePlayer())
+            {
+                if (_screamTimer <= 0)
+                {
+                    chasingScreamAudioSource.PlayOneShot(chasingScreamClip);
+                    _screamTimer = 10f;
+                }
+
+                _animator.SetBool("IsChasing", true);
+
+                // Speed up the enemy and make it follow player
+                _navMeshAgent.speed = runningSpeed;
+                _navMeshAgent.SetDestination(playerTransform.position);
+
+                if (Vector3.Distance(transform.position, playerTransform.position) <= triggerJumpscareDistance)
+                {
+                    StartCoroutine(TriggerJumpscare());
+                }
+            }
+
+            else
+            {
+                _animator.SetBool("IsChasing", false);
+
+                // Slow down the enemy and make him patrolling
+                _navMeshAgent.speed = walkingSpeed;
+                if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.2f)
+                {
+                    NextPoint();
+                }
+            }
+
+            PlayFootstep();
+        }
     }
 
     private bool CanSeePlayer()
     {
+        if (PlayerInteraction.IsPlayerHidden) return false;
+
         // Check distance between enemy and player
         float distance = Vector3.Distance(transform.position, playerTransform.position);
         if (distance > viewDistance) return false;
 
         // Check field of view
-        _eyePosition = transform.position + transform.up * 0.5f;
+        _eyePosition = transform.position + transform.up * 1.8f;
         _directionToPlayer = (playerTransform.position + playerTransform.up * 0.25f - _eyePosition).normalized;
         float angle = Vector3.Angle(transform.forward, _directionToPlayer);
         if (angle > viewAngle) return false;
 
         // Raycast to check if wall is blocking
-        if (Physics.Raycast(_eyePosition, _directionToPlayer, viewDistance, obstructionMask))
+        if (Physics.Raycast(_eyePosition, _directionToPlayer, out RaycastHit hitInfo, viewDistance, excludeEnemyLayer))
         {
+            if (hitInfo.collider.tag == "Player")
+            {
+                return true;
+            }
+
             return false; // Player is not visible
         }
 
@@ -103,12 +160,86 @@ public class Enemy : MonoBehaviour
 
             if (tempIndex != _currentPatrolPoint)
             {
+                if (tempIndex == 7 && !Room0Door.IsSolved)
+                {
+                    continue;
+                }
+
                 _currentPatrolPoint = tempIndex;
                 break;
             }
         }
 
         _navMeshAgent.SetDestination(patrolPoints[_currentPatrolPoint].position);
+    }
+
+    private IEnumerator TriggerJumpscare()
+    {
+        PlayerMovement.IsMovementInputOn = false;
+        PlayerCamera.IsCameraInputOn = false;
+
+        _navMeshAgent.speed = 0f;
+        _navMeshAgent.acceleration = 0f;
+        _navMeshAgent.velocity = Vector3.zero;
+
+        // Jumpscare here
+        // Get horizontal direction from camera (no vertical component)
+        Vector3 horizontalForward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
+
+        // Position enemy close to camera but on ground level
+        Vector3 closePosition = cameraTransform.position + horizontalForward * 0.4f; // Adjust distance
+        closePosition.y = transform.position.y; // Keep enemy at its current ground level
+
+        _navMeshAgent.enabled = false; // Disable to allow teleport
+        transform.position = closePosition;
+        transform.LookAt(new Vector3(cameraTransform.position.x, transform.position.y, cameraTransform.position.z)); // Face camera
+
+        // Calculate enemy's face position
+        Vector3 enemyFacePosition = transform.position + transform.up * 1.8f;
+
+        // Snap camera to look at enemy face
+        StartCoroutine(SnapCameraToEnemy(enemyFacePosition));
+
+        _animator.SetBool("IsJumpscare", true);
+
+        _audioSource.PlayOneShot(jumpscareClip);
+
+        _isJumpscareOccurred = true;
+
+        yield return new WaitForSeconds(2.5f);
+
+        SceneManager.LoadSceneAsync("MainMenuScene");
+    }
+
+    private IEnumerator SnapCameraToEnemy(Vector3 targetPosition)
+    {
+        float duration = 0.2f; // How fast camera snaps to enemy
+        float elapsed = 0f;
+
+        Quaternion startRotation = cameraTransform.rotation;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // Calculate direction to enemy face
+            Vector3 directionToFace = targetPosition - cameraTransform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToFace);
+
+            // Smoothly rotate camera
+            cameraTransform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
+
+            yield return null;
+        }
+
+        // Keep camera locked on enemy face
+        while (true)
+        {
+            Vector3 directionToFace = targetPosition - cameraTransform.position;
+            cameraTransform.rotation = Quaternion.LookRotation(directionToFace);
+            yield return null;
+        }
     }
 
     private void PlayFootstep()
