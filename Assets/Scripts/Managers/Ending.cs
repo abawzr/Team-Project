@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
-    [SerializeField] private Animator ending1Animator;
-    [SerializeField] private Animator ending2Animator;
+    [SerializeField] private Animator endingAnimator;
     [SerializeField] private AudioClip musicClip;
+    [SerializeField] private AudioSource ambientAudioSource1;
+    [SerializeField] private AudioSource ambientAudioSource2;
 
     private AudioSource _audioSource;
 
@@ -19,13 +20,17 @@ public class Ending : MonoBehaviour
     {
         PlayerCamera.IsCameraInputOn = false;
         PlayerMovement.IsMovementInputOn = false;
+        PlayerInteraction.CanInteract = false;
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
-        ending1Animator.SetTrigger("TriggerEnding");
+        ambientAudioSource1.Stop();
+        ambientAudioSource2.Stop();
+
+        endingAnimator.SetTrigger("TriggerEnding1");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length);
+        yield return new WaitForSeconds(musicClip.length + 2f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }
@@ -34,13 +39,17 @@ public class Ending : MonoBehaviour
     {
         PlayerCamera.IsCameraInputOn = false;
         PlayerMovement.IsMovementInputOn = false;
+        PlayerInteraction.CanInteract = false;
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
-        ending2Animator.SetTrigger("TriggerEnding");
+        ambientAudioSource1.Stop();
+        ambientAudioSource2.Stop();
+
+        endingAnimator.SetTrigger("TriggerEnding2");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length);
+        yield return new WaitForSeconds(musicClip.length + 2f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }

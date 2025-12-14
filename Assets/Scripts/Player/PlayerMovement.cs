@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float stepInterval = _playerSpeed < 5 ? walkStepInterval : runStepInterval;
+        float stepInterval = _playerSpeed < runningSpeed ? walkStepInterval : runStepInterval;
 
         _stepTimer += Time.deltaTime;
 

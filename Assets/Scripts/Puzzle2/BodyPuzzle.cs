@@ -17,6 +17,8 @@ public class BodyPuzzle : MonoBehaviour
                 return;
             }
         }
-        IsSolved = true; 
+
+        IsSolved = true;
+        MainDoor.Lock2 = false;
     }
 }

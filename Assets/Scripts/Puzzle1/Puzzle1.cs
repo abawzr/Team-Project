@@ -27,6 +27,6 @@ public class Puzzle1 : MonoBehaviour
         }
 
         Debug.Log("Puzzle 1 Solved");
-        // mainDoor.Lock1 = true;
+        MainDoor.Lock1 = false;
     }
 }
