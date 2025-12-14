@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] private Ending ending;
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private float maxHealth;
+    [SerializeField] private float healthDropRate;
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Volume volumeProfile;
@@ -40,7 +41,7 @@ public class Health : MonoBehaviour
     {
         if (_currentHealth > 0f)
         {
-            _currentHealth -= Time.deltaTime;
+            _currentHealth -= healthDropRate * Time.deltaTime;
 
             if (_currentHealth < 0f)
             {
@@ -54,7 +55,7 @@ public class Health : MonoBehaviour
             healthSlider.value = _currentHealth;
         }
 
-        float m = maxHealth / 2;
+        float m = maxHealth * 0.75f;
 
         if (_currentHealth <= m && _currentHealth > 0f)
         {

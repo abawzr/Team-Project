@@ -472,12 +472,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8358ad8b0786ffe4d90bf5241ebf87e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  walkingSpeed: 3
-  runningSpeed: 6
+  walkingSpeed: 2
+  runningSpeed: 4
   gravity: -20
   footstepAudioSource: {fileID: 34685753889354900}
   footstepClip: {fileID: 8300000, guid: 7a4fa7b3e6fec9142a9dce7fbf886a34, type: 3}
-  walkStepInterval: 0.6
+  walkStepInterval: 0.65
   runStepInterval: 0.4
 --- !u!114 &4371560456210452117
 MonoBehaviour:
@@ -551,7 +551,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  maxHealth: 5
+  maxHealth: 100
+  healthDropRate: 0.15
   playerInventory: {fileID: 5786278119703130646}
   healthSlider: {fileID: 0}
   volumeProfile: {fileID: 6405301897808560490}

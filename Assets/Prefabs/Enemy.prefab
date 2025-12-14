@@ -1275,8 +1275,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  walkingSpeed: 3.5
-  runningSpeed: 5.5
+  walkingSpeed: 2.5
+  runningSpeed: 3
   playerTransform: {fileID: 0}
   cameraTransform: {fileID: 0}
   viewAngle: 80

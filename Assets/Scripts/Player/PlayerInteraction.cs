@@ -30,6 +30,8 @@ public class PlayerInteraction : MonoBehaviour
         _playerInventory = GetComponent<PlayerInventory>();
         _crosshairImageUI = crosshairGameObjectUI.GetComponent<Image>();
         _crosshairRectUI = crosshairGameObjectUI.GetComponent<RectTransform>();
+
+        CanInteract = true;
     }
 
     private void Update()

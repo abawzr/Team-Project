@@ -6,6 +6,8 @@ public class Ending : MonoBehaviour
 {
     [SerializeField] private Animator endingAnimator;
     [SerializeField] private AudioClip musicClip;
+    [SerializeField] private AudioSource ambientAudioSource1;
+    [SerializeField] private AudioSource ambientAudioSource2;
 
     private AudioSource _audioSource;
 
@@ -22,10 +24,13 @@ public class Ending : MonoBehaviour
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
+        ambientAudioSource1.Stop();
+        ambientAudioSource2.Stop();
+
         endingAnimator.SetTrigger("TriggerEnding1");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length);
+        yield return new WaitForSeconds(musicClip.length + 2f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }
@@ -38,10 +43,13 @@ public class Ending : MonoBehaviour
         PauseManager.CanPause = false;
         Enemy.CanMove = false;
 
+        ambientAudioSource1.Stop();
+        ambientAudioSource2.Stop();
+
         endingAnimator.SetTrigger("TriggerEnding2");
         _audioSource.PlayOneShot(musicClip);
 
-        yield return new WaitForSeconds(musicClip.length);
+        yield return new WaitForSeconds(musicClip.length + 2f);
 
         SceneManager.LoadSceneAsync("MainMenuScene");
     }
