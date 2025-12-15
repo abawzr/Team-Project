@@ -555,7 +555,7 @@ MonoBehaviour:
   healthDropRate: 0.2
   playerInventory: {fileID: 5786278119703130646}
   healthSlider: {fileID: 0}
-  volumeProfile: {fileID: 0}
+  volumeProfile: {fileID: 8667902127679581349}
 --- !u!82 &47830315336216069
 AudioSource:
   m_ObjectHideFlags: 0
