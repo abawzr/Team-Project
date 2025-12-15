@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     // ======== Button Functions ========
 
-    private void PlayGame()
+    public void PlayGame()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -40,19 +40,19 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("GameScene");
     }
 
-    private void OpenSettings()
+    public void OpenSettings()
     {
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(true);
     }
 
-    private void BackToMainMenu()
+    public void BackToMainMenu()
     {
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
