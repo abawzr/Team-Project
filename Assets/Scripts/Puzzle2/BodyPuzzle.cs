@@ -22,10 +22,10 @@ public class BodyPuzzle : MonoBehaviour
         }
 
         IsSolved = true;
-        MainDoor.IsPuzzle2Solved = true;
+        MainDoor.puzzle2Done = true;
         mainDoorAudioSource.PlayOneShot(mainDoorUnlockClip);
 
-        if (MainDoor.IsPuzzle1Solved && MainDoor.IsPuzzle2Solved)
+        if (MainDoor.puzzle1Done && MainDoor.puzzle2Done)
         {
             mainDoorTextAnimator.SetTrigger("Unlock");
         }

@@ -208,6 +208,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
 
+        Cursor.lockState = CursorLockMode.Confined;
         SceneManager.LoadSceneAsync("MainMenuScene");
     }
 

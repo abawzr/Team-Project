@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: f3d2a1e13315740d3953bc392c8aab0f
   - enabled: 1
-    path: Assets/Scenes/Abdullah-Map.unity
-    guid: 80ebe94c82dd61a418d2049af76009c2
+    path: Assets/Scenes/GameScene.unity
+    guid: a13151ae8b6434e178b78f34994716f6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

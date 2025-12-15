@@ -30,10 +30,10 @@ public class Puzzle1 : MonoBehaviour
             Destroy(slot);
         }
 
-        MainDoor.IsPuzzle1Solved = true;
+        MainDoor.puzzle1Done = true;
         mainDoorAudioSource.PlayOneShot(mainDoorUnlockClip);
 
-        if (MainDoor.IsPuzzle1Solved && MainDoor.IsPuzzle2Solved)
+        if (MainDoor.puzzle1Done && MainDoor.puzzle2Done)
         {
             mainDoorTextAnimator.SetTrigger("Unlock");
         }
