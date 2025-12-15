@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
+    [SerializeField] private Transform room0PatrolPoint;
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float runningSpeed;
     [SerializeField] private Transform playerTransform;
@@ -158,13 +159,10 @@ public class Enemy : MonoBehaviour
         {
             int tempIndex = Random.Range(0, patrolPoints.Count);
 
+            if (patrolPoints[tempIndex] == room0PatrolPoint && !Room0Door.IsSolved) continue;
+
             if (tempIndex != _currentPatrolPoint)
             {
-                if (tempIndex == 7 && !Room0Door.IsSolved)
-                {
-                    continue;
-                }
-
                 _currentPatrolPoint = tempIndex;
                 break;
             }

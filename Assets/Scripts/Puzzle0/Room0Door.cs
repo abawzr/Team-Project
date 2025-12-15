@@ -13,6 +13,7 @@ public class Room0Door : MonoBehaviour, IInteractable
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        IsSolved = false;
     }
 
     public void Interact(PlayerInventory playerInventory)
