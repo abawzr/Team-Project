@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         // Load your game scene
-        SceneManager.LoadSceneAsync("Abdullah-Map");
+        SceneManager.LoadSceneAsync("GameScene");
     }
 
     private void OpenSettings()

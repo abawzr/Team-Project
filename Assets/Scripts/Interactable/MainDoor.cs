@@ -6,16 +6,15 @@ public class MainDoor : MonoBehaviour, IInteractable
     [SerializeField] private AudioSource mainDoorAudioSource;
     [SerializeField] private AudioClip mainDoorLockedClip;
 
-    public static bool IsPuzzle1Solved { get; set; } = false;
-    public static bool IsPuzzle2Solved { get; set; } = false;
+    public static bool puzzle1Done = false;
+    public static bool puzzle2Done = false;
 
     public void Interact(PlayerInventory playerInventory)
     {
-        if (IsPuzzle1Solved && IsPuzzle2Solved)
+        if (puzzle1Done && puzzle2Done)
         {
             ending.TriggerEnding1();
         }
-
         else
         {
             mainDoorAudioSource.PlayOneShot(mainDoorLockedClip);

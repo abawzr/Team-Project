@@ -9,10 +9,10 @@
   <Project Path="Unity.RenderPipelines.Universal.Editor.csproj" />
   <Project Path="Genies.Avatars.Services.csproj" />
   <Project Path="Genies.Assets.Services.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Genies.MegaEditor.csproj" />
   <Project Path="UnityGLTFScripts.csproj" />
   <Project Path="Genies.Customizer.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Genies.Looks.csproj" />
   <Project Path="Genies.Avatars.csproj" />
   <Project Path="UMA_Core.csproj" />
