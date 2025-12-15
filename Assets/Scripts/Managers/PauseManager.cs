@@ -44,7 +44,6 @@ public class PauseManager : MonoBehaviour
 
         // Show and unlock cursor for menu interaction
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
 
         PlayerCamera.IsCameraInputOn = false;
     }
@@ -57,7 +56,6 @@ public class PauseManager : MonoBehaviour
 
         // Hide and lock cursor again for gameplay
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
 
         PlayerCamera.IsCameraInputOn = true;
     }

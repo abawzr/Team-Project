@@ -1279,7 +1279,7 @@ MonoBehaviour:
   runningSpeed: 3
   playerTransform: {fileID: 0}
   cameraTransform: {fileID: 0}
-  viewAngle: 80
+  viewAngle: 95
   viewDistance: 12.5
   excludeEnemyLayer:
     serializedVersion: 2
